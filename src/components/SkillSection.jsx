@@ -9,39 +9,48 @@ import { AccordionItem } from "./ui/AccordionItem";
 
 const skills = [
   // Web Development
-  { name: "HTML", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg", category: "web-development" },
-  { name: "CSS", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg" , category: "web-development" },
+  { name: "HTML", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg", category: "web-development" },
+  { name: "CSS", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" , category: "web-development" },
   { name: "JavaScript", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" , category: "web-development" },
-  { name: "React", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original-wordmark.svg" , category: "web-development" },
-  { name: "Bootstap", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original-wordmark.svg" , category: "web-development" },
-  { name: "Tailwind CSS", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg", category: "web-development" },
-  { name: "Node.js", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-plain-wordmark.svg", category: "web-development" },
+  { name: "React JS", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" , category: "web-development" },
+  { name: "Next JS", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg", category: "web-development" },
+  { name: "Bootstap", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" , category: "web-development" },
+  { name: "Tailwind", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg", category: "web-development" },
+  { name: "Node JS", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-plain-wordmark.svg", category: "web-development" },
+  { name: "Express JS", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg", category: "web-development" },
   { name: "PHP", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg", category: "web-development" },
-  { name: "MySQL", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg", category: "web-development" },
-  { name: "Firebase", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain-wordmark.svg", category: "web-development" },
-
+  { name: "MySQL", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg", category: "web-development" },
+  { name: "PostGreSQL", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg", category: "web-development" },
+  { name: "Firebase", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg", category: "web-development" },
+  { name: "MongoDB", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg", category: "web-development" },
+  { name: "Vercel", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg", category: "web-development" },
+  { name: "Railway", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/railway/railway-line.svg", category: "web-development" },
+  
+  
   // Programming Languages
-  { name: "Python", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original-wordmark.svg", category: "programming languages" },
+  { name: "Python", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", category: "programming languages" },
+  { name: "Java", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg", category: "programming languages" },
+  { name: "C++", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg", category: "programming languages" },
+  { name: "C#", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg", category: "programming languages" },
   { name: "Arduino", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/arduino/arduino-original.svg", category: "programming languages" },
-  { name: "R Programming", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/r/r-original.svg", category: "programming languages" },
+  { name: "R", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/r/r-original.svg", category: "programming languages" },
   { name: "SQL", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg", category: "programming languages" },
-  { name: "Microsoft Excel", img: "https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg", category: "programming languages" },
-  { name: "Tableau", img: "https://upload.wikimedia.org/wikipedia/commons/3/32/Tableau_image.png", category: "programming languages" },
+
 
   //Productivity Tools
 
   // Dev Tools
-  { name: "GitHub", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original-wordmark.svg", category: "tools" },
+  { name: "GitHub", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", category: "tools" },
   { name: "Git", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg", category: "tools" },
-  { name: "VS Code", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original-wordmark.svg", category: "tools" },
-  { name: "PyCharm", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pycharm/pycharm-original-wordmark.svg", category: "tools" },
-  { name: "Android Studio", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original-wordmark.svg", category: "tools" },
+  { name: "Postman", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg", category: "tools" },
+  { name: "VS Code", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg", category: "tools" },
+  { name: "PyCharm", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pycharm/pycharm-original.svg", category: "tools" },
+  { name: "Android Studio", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg", category: "tools" },
   { name: "R Studio", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rstudio/rstudio-original.svg", category: "tools" },
   { name: "Figma", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg", category: "tools" },
   { name: "3Ds Max", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/threedsmax/threedsmax-original.svg", category: "tools" },
-  { name: "Blender", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original-wordmark.svg", category: "tools" },
-  { name: "Unreal Engine", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original-wordmark.svg", category: "tools" },
-  { name: "Microsoft Word", img: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg", category: "tools" },
+  { name: "Blender", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg", category: "tools" },
+  { name: "Unreal Engine", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg", category: "tools" },
   { name: "Adobe Premiere Pro", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg", category: "tools" },
   { name: "Adobe After Effects", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg", category: "tools" },
 
@@ -52,7 +61,7 @@ const skills = [
 const images = {
     "default": "./skills/default.jpg",
     "item-1": "./skills/Webdev.png",
-    "item-2": "./skills/data_analyst.jpg",
+    "item-2": "./skills/programming_languages.jpg",
     "item-3": "./skills/tools.png",
 
 };
@@ -118,17 +127,17 @@ export const SkillSection = () => {
                         setActiveCategory(val ? categoryMap[val] : "all"); // sync with skills
                     }}>
                             <AccordionItem value="item-1" title="Web Development" icon={<AppWindow size={20} />}>
-                               I build responsive web applications using HTML, CSS, JavaScript, and React. 
-                                Experienced with Node.js, PHP, MySQL, Firebase, and modern frameworks like Tailwind and Bootstrap.
+                              I have experience building responsive web applications using the MERN stack (MongoDB, Express.js, React, Node.js) and Next.js.  
+                                I’m also familiar with PHP, MySQL, PostgreSQL, Tailwind CSS, and Bootstrap for full-stack development.
                             </AccordionItem>
 
                             <AccordionItem value="item-2" title="Programming and Data Analysis" icon={<Code size={20} />}>
-                                Skilled in Python, R, SQL, Tableau, and Excel for data analysis and automation. 
-                                Also experienced in Arduino programming and IOT development.
+                                 I have basic knowledge of programming languages such as Python, Java, C++, and C#.  
+                                 I also have experience using Arduino for IoT projects and basic data analysis using Python, R, and SQL.
                             </AccordionItem>
 
                             <AccordionItem value="item-3" title="Other Tools" icon={<MonitorCog size={20} />}>
-                                Proficient with Git/GitHub, VS Code, Rstudio, PyCharm, Figma, Blender, 3Ds Max, 
+                                Proficient with Git, GitHub, Postman, VS Code, Rstudio, PyCharm, Figma, Blender, 3Ds Max, 
                              Unreal Engine, Microsoft Office, and Adobe Suite (Premiere Pro, After Effects).
                             </AccordionItem>
                     </Accordion.Root>
