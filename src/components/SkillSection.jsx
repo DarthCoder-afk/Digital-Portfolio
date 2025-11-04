@@ -131,7 +131,7 @@ export const SkillSection = () => {
                                 I’m also familiar with PHP, MySQL, PostgreSQL, Tailwind CSS, and Bootstrap for full-stack development.
                             </AccordionItem>
 
-                            <AccordionItem value="item-2" title="Programming and Data Analysis" icon={<Code size={20} />}>
+                            <AccordionItem value="item-2" title="Programming" icon={<Code size={20} />}>
                                  I have basic knowledge of programming languages such as Python, Java, C++, and C#.  
                                  I also have experience using Arduino for IoT projects and basic data analysis using Python, R, and SQL.
                             </AccordionItem>
