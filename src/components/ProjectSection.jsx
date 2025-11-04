@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast"; // ✅ import toast
 
 const proj = [
   {
-    id: 1,
+    id: 3,
     title: "Leave Tracking System",
     description:
       "A web app for the HR Office to manage and monitor employee leave and travel requests efficiently.",
@@ -18,7 +18,7 @@ const proj = [
     githubUrl: "#",
   },
   {
-    id: 2,
+    id: 4,
     title: "Document Management System",
     description:
       "A system that helps the Sangguniang Bayan Office organize and track municipal resolutions and orders.",
@@ -31,7 +31,7 @@ const proj = [
     githubUrl: "#",
   },
   {
-    id: 3,
+    id: 2,
     title: "Note App",
     description:
       "A MERN-based note-taking app that lets users create, edit, and delete notes in real time.",
@@ -44,7 +44,7 @@ const proj = [
     githubUrl: "#",
   },
   {
-    id: 4,
+    id: 1,
     title: "HeartLink: Dating App",
     description:
       "A Next.js-based dating app with real-time chat, secure auth, and smart matching features.",
