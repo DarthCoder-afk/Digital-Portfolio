@@ -4,6 +4,32 @@ import { fadeIn } from "../variants";
 import toast, { Toaster } from "react-hot-toast"; // ✅ import toast
 
 const proj = [
+    {
+    id: 1,
+    title: "HeartLink: Dating App",
+    description:
+      "A Next.js-based dating app with real-time chat, secure auth, and smart matching features.",
+    image: "/projects/project-4.png",
+    tags: ["Next.js", "TypeScript", "Socket.io", "Node.js", "MongoDB"],
+    role: "Full Stack Development & UI Design",
+    year: "2025",
+    bg: "bg-[#e39695]",
+    demoUrl: "https://datingapp-heartlink.vercel.app/",
+    githubUrl: "#",
+  },
+  {
+    id: 2,
+    title: "Note App",
+    description:
+      "A MERN-based note-taking app that lets users create, edit, and delete notes in real time.",
+    image: "/projects/project-3.png",
+    tags: ["MongoDB", "Express", "React", "Node.js"],
+    role: "Full Stack Development",
+    year: "2025",
+    bg: "bg-[#3b734a]",
+    demoUrl: "https://noteapp-yn7h.onrender.com/",
+    githubUrl: "#",
+  },
   {
     id: 3,
     title: "Leave Tracking System",
@@ -30,42 +56,18 @@ const proj = [
     demoUrl: "#",
     githubUrl: "#",
   },
-  {
-    id: 2,
-    title: "Note App",
-    description:
-      "A MERN-based note-taking app that lets users create, edit, and delete notes in real time.",
-    image: "/projects/project-3.png",
-    tags: ["MongoDB", "Express", "React", "Node.js"],
-    role: "Full Stack Development",
-    year: "2025",
-    bg: "bg-[#3b734a]",
-    demoUrl: "https://noteapp-yn7h.onrender.com/",
-    githubUrl: "#",
-  },
-  {
-    id: 1,
-    title: "HeartLink: Dating App",
-    description:
-      "A Next.js-based dating app with real-time chat, secure auth, and smart matching features.",
-    image: "/projects/project-4.png",
-    tags: ["Next.js", "TypeScript", "Socket.io", "Node.js", "MongoDB"],
-    role: "Full Stack Development & UI Design",
-    year: "2025",
-    bg: "bg-[#e39695]",
-    demoUrl: "https://datingapp-heartlink.vercel.app/",
-    githubUrl: "#",
-  },
+  
+ 
 ];
 
 export const ProjectSection = () => {
   const handleUnavailableDemo = (title) => {
     toast.error(`Demo for "${title}" is not available yet 😅`, {
       duration: 2500,
-      position: "bottom-center",
+      position: "bottom-right",
       style: {
-        background: "#1a1a1a",
-        color: "#fff",
+        background: "#f8fafc",
+        color: "#1a1a1a",
         borderRadius: "8px",
         padding: "12px 16px",
         fontSize: "14px",
