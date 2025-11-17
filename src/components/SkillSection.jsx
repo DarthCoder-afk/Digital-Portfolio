@@ -24,7 +24,7 @@ const skills = [
   { name: "Firebase", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg", category: "web-development" },
   { name: "MongoDB", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg", category: "web-development" },
   { name: "Vercel", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg", category: "web-development" },
-  { name: "Railway", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/railway/railway-line.svg", category: "web-development" },
+
   
   
   // Programming Languages
