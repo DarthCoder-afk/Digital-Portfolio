@@ -65,7 +65,7 @@ export const AboutMe = () => {
                     className="mt-9"
                     >
                         <a
-                            href="https://drive.google.com/file/d/1SWJSeLnFwqaWvyXxj-FKxmAWRAb05IiU/view?usp=sharing"
+                            href="https://drive.google.com/file/d/1ZcAw1p0ujheTs7ueOzyAdvaPs_-cLakz/view?usp=sharing"
                             className="relative bg-[#f8f9fa] inline-block px-6 py-3 text-sm md:text-base rounded-full border border-[#212529] font-semibold overflow-hidden group"
                         >
                             {/* Text */}
