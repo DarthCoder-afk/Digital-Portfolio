@@ -47,13 +47,11 @@ export const AboutMe = () => {
                             <span className="inline-block">Hi :) </span>
                             <br />
                             <br />
-                            👋 I'm Sean and I am an aspiring software developer with a passion for building software solutions tailored to user or client needs. 
-                            Whether it's a web application, desktop system, or mobile app, I focus on creating functional and user-friendly experiences 👨‍💻.
+                           👋 I'm Sean, a Software Engineer passionate about building scalable and user-focused applications. 
+                          I specialize in developing enterprise web systems, ERP platforms, and full-stack applications using modern technologies such as Next.js, NestJS, Node.js, PostgreSQL, and MongoDB. 👨‍💻
                             <br /><br />
-                            I enjoy turning ideas into working products and continuously aim to improve my skills and contribute to 
-                            real-world projects. I am currently open for work and excited to join a team where I can grow and make an impact 🌏.
-
-                         
+                           I enjoy transforming complex ideas into efficient and reliable software solutions while continuously improving my technical skills through real-world development experience. 
+                          I’m currently open to new opportunities where I can contribute, grow, and create meaningful impact through technology 🌏
                         </div>
                     </div>    
 
