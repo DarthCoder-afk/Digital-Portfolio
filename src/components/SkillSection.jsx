@@ -12,6 +12,7 @@ const skills = [
   { name: "HTML", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg", category: "web-development" },
   { name: "CSS", img:"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" , category: "web-development" },
   { name: "JavaScript", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" , category: "web-development" },
+  { name: "TypeScript", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" , category: "web-development" },
   { name: "React JS", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" , category: "web-development" },
   { name: "Next JS", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg", category: "web-development" },
   { name: "Bootstap", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" , category: "web-development" },
@@ -42,6 +43,7 @@ const skills = [
   // Dev Tools
   { name: "GitHub", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", category: "tools" },
   { name: "Git", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg", category: "tools" },
+  { name: "Gitlab", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg", category: "tools" },
   { name: "Postman", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg", category: "tools" },
   { name: "VS Code", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg", category: "tools" },
   { name: "PyCharm", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pycharm/pycharm-original.svg", category: "tools" },
@@ -127,8 +129,7 @@ export const SkillSection = () => {
                         setActiveCategory(val ? categoryMap[val] : "all"); // sync with skills
                     }}>
                             <AccordionItem value="item-1" title="Web Development" icon={<AppWindow size={20} />}>
-                              I have experience building responsive web applications using the MERN stack (MongoDB, Express.js, React, Node.js) and Next.js.  
-                                I’m also familiar with PHP, MySQL, PostgreSQL, Tailwind CSS, and Bootstrap for full-stack development.
+                              I have experience developing responsive web applications using Next.js, React, Node.js, NestJS, MongoDB, and PostgreSQL, with additional experience in PHP, MySQL, Tailwind CSS, and Bootstrap for full-stack development.
                             </AccordionItem>
 
                             <AccordionItem value="item-2" title="Programming" icon={<Code size={20} />}>
@@ -137,7 +138,7 @@ export const SkillSection = () => {
                             </AccordionItem>
 
                             <AccordionItem value="item-3" title="Other Tools" icon={<MonitorCog size={20} />}>
-                                Proficient with Git, GitHub, Postman, VS Code, Rstudio, PyCharm, Figma, Blender, 3Ds Max, 
+                                Proficient with Git, GitHub, Gitlab Postman, VS Code, Rstudio, PyCharm, Figma, Blender, 3Ds Max, 
                              Unreal Engine, Microsoft Office, and Adobe Suite (Premiere Pro, After Effects).
                             </AccordionItem>
                     </Accordion.Root>
