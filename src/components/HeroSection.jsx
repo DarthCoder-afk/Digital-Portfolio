@@ -133,7 +133,7 @@ export const HeroSection = () => {
               enableMobileTilt={false}
               onContactClick={handleContactClick}
               behindGlowColor="rgba(125, 190, 255, 0.67)"
-              iconUrl="/assets/demo/iconpattern.png"
+              iconUrl="/card/pattern.png"
               behindGlowEnabled
               innerGradient="linear-gradient(145deg, rgba(18, 18, 18, 0.95) 0%, rgba(40, 40, 40, 0.55) 100%)"
             />
