@@ -160,14 +160,14 @@ export const AboutMe = () => {
               </div>
 
               <div className="mt-14 flex flex-wrap items-center gap-5 md:mt-16">
-                <a
-                  href="https://drive.google.com/file/d/1ZcAw1p0ujheTs7ueOzyAdvaPs_-cLakz/view?usp=sharing"
+                {import.meta.env.VITE_RESUME_URL && (<a
+                  href={import.meta.env.VITE_RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="cinematic-button-primary"
                 >
                   View Resume
-                </a>
+                </a>)}
                 <a href="#contact" className="cinematic-button-secondary">
                   Get In Touch
                 </a>
