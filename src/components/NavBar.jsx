@@ -1,162 +1,208 @@
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { X, Menu, Github, Linkedin, Facebook } from "lucide-react";
-import { useEffect, useState } from "react";
-import {motion} from "framer-motion"
-import { fadeIn } from "../variants";
-const navItems = [
-    { name: "Home", href: "#hero" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" }
-]
+import { Github, Linkedin, Facebook, Menu, X } from "lucide-react";
+import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+import { handleSectionLinkClick } from "@/lib/scrollToSection";
 
+const navItems = [
+  { name: "Home", href: "#hero" },
+  { name: "About", href: "#about" },
+  { name: "Experience", href: "#experience" },
+  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
+  { name: "Contact", href: "#contact" },
+];
+
+const socialLinks = [
+  { href: "https://github.com/DarthCoder-afk", icon: Github, label: "GitHub" },
+  { href: "https://www.linkedin.com/in/seanmichaelarriolaborje", icon: Linkedin, label: "LinkedIn" },
+  { href: "https://www.facebook.com/seanmichael.borje.7/", icon: Facebook, label: "Facebook" },
+];
 
 export const NavBar = () => {
-    const[Scrolled, setScrolled] = useState(false);
-    const[isMenuOpen, setIsMenuOpen] = useState(false);  
-    const [activeLink, setActiveLink] = useState("#hero");
-    const [hoverPosition, setHoverPosition] = useState({
-    left: 0,
-    width: 0,
-    opacity: 0,
-    });    
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const progressRef = useRef(null);
+  const linksRef = useRef([]);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 10);
-        };
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        start: 0,
+        end: "max",
+        onUpdate: (self) => {
+          if (progressRef.current) {
+            progressRef.current.style.transform = `scaleX(${self.progress})`;
+          }
+        },
+      });
+    });
 
-    useEffect(() => {
-        if (isMenuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    }, [isMenuOpen]);
+    return () => ctx.revert();
+  }, []);
 
-    return <nav className={cn("fixed w-full z-40 font-semibold transition-all duration-200",
-        Scrolled ? "py-3 bg-[#f8fafc] shadow-lg md:bg-transparent md:shadow-none" : "py-5 bg-transparent",
-    )}>
-        <div className="container mx-auto flex items-center justify-between px-4">
-             {/* Desktop View */}
-            <motion.div 
-                variants={fadeIn('down', 0.2)}
-                initial="hidden"
-                whileInView={"show"}
-                viewport={{ once: true, amount: 0.3}}
-                className="hidden md:flex w-full justify-center mt-1 relative">
-                <div className={cn(
-                        "w-full max-w-5xl rounded-full flex items-center justify-between relative transition-all duration-300 ease-in-out",
-                        Scrolled
-                        ? "backdrop-blur bg-[#f8fafc]/80 border border-[#ced4da] shadow-lg px-4 py-4"
-                        : "bg-transparent  py-4 pl-0 pr-0"
-                    )}>
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
 
-                    {/* Left: Name */}
-                    <a href="#hero" className={cn(
-                            "text-xl font-bold text-primary transition-all duration-200",
-                            Scrolled ? "ml-0" : "ml-[-12px]"
-                        )}>
-                        <span className="text-foreground">SEAN</span>
-                    </a>
+  useEffect(() => {
+    if (!isMenuOpen) {
+      linksRef.current.forEach((link) => {
+        if (link) gsap.set(link, { clearProps: "all" });
+      });
+      return;
+    }
 
-                    {/* Center: Navigation */}
-                    <ul 
-                    onMouseLeave={() => {
-                    setHoverPosition((pv) => ({ ...pv, opacity: 0 }));
-                    }}
-                    className={cn(
-                        "relative flex space-x-1 transition-all duration-200",
-                        Scrolled ? "mx-8" : "mx-0"
-                    )}>
-                        {navItems.map((item, key) => (
-                            <li
-                            key={key}
-                            className="relative z-10 cursor-pointer text-sm font-medium text-gray-800 hover:text-secondary transition-colors px-4 py-2"
-                            onMouseEnter={(e) => {
-                                const target = e.currentTarget;
-                                const { width } = target.getBoundingClientRect();
-                                setHoverPosition({
-                                    left: target.offsetLeft - 4, // optional: shift left a bit
-                                    width: width + 8,           // make it wider than the item
-                                    opacity: 1,
-                                });
-                            }}
-                            >
-                            <a href={item.href}> 
-                                {item.name}</a>
-                            </li>
-                        ))}
-                         <motion.div
-                            layout
-                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                            animate={{
-                                left: hoverPosition.left,
-                                width: hoverPosition.width,
-                                opacity: hoverPosition.opacity,
-                            }}
-                            className="absolute top-1/2 -translate-y-1/2 h-10 px-4 rounded-full bg-primary -z-0"
-                        />
-                    </ul>
+    if (prefersReducedMotion()) return;
 
-                    {/* Right: Social Icons */}
-                    <div className={cn(
-                        "flex space-x-4 transition-all duration-200",
-                        Scrolled ? "mr-0" : "mr-[-24px]"
-                    )}>
-                        <a href="https://github.com/DarthCoder-afk" target="_blank" rel="noopener noreferrer">
-                            <Github className="text-foreground/70 hover:fill-[#212529] transition" size={18} />
-                        </a>
-                        <a href="https://www.linkedin.com/in/seanmichaelarriolaborje" target="_blank" rel="noopener noreferrer">
-                            <Linkedin className="text-foreground/70 hover:fill-[#212529] transition" size={18} />
-                        </a>
-                        <a href="https://www.facebook.com/seanmichael.borje.7/" target="_blank" rel="noopener noreferrer">
-                            <Facebook className="text-foreground/70 hover:fill-[#212529] transition" size={18} />
-                        </a>
-                    </div>
+    gsap.fromTo(
+      linksRef.current.filter(Boolean),
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.55,
+        stagger: 0.07,
+        ease: "power3.out",
+        delay: 0.1,
+      }
+    );
+  }, [isMenuOpen]);
 
-                </div>
-            </motion.div>
+  const closeMenu = () => setIsMenuOpen(false);
 
+  const onNavClick = (event, href) => {
+    handleSectionLinkClick(event, href, {
+      onNavigate: () => {
+        closeMenu();
+        document.body.style.overflow = "";
+      },
+    });
+  };
 
-            {/* Mobile View */}
+  return (
+    <>
+      <header className="nav-bar fixed inset-x-0 top-0 z-[120]">
+        <div className="container flex items-center justify-between py-5 md:py-6">
+          <a
+            href="#hero"
+            onClick={(event) => onNavClick(event, "#hero")}
+            className="nav-bar__brand font-display text-sm font-medium tracking-[0.28em] transition-opacity hover:opacity-70"
+          >
+            SM
+          </a>
 
-            <button onClick={()=> setIsMenuOpen((prev) => !prev)} 
-            className="md:hidden text-foreground z-50 align-right"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}>
-                {isMenuOpen? <X size={24} /> : <Menu size={24} />}</button>
+          <div className="hidden items-center gap-8 md:flex">
+            <nav className="flex items-center gap-6">
+              {navItems.slice(1).map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={(event) => onNavClick(event, item.href)}
+                  className="text-label text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </nav>
 
-            <div className={cn("fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center",
-                "transition-all duration-300 md:hidden",
-                isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-
-                
-            )}>
-                <div className="flex flex-col space-y-8 text-xl">
-                    {navItems.map((item, key) => (
-                        <a key={key} href={item.href} className="text-foreground/80 hover:text-primary transition-colors duration-200 " onClick={() => setIsMenuOpen(false)}>
-                            {item.name}</a>
-                    ))}
-
-                    {/* Mobile Social Icons */}
-                    <div className="flex space-x-4 pt-8">
-                        <a href="https://github.com/DarthCoder-afk" target="_blank" rel="noopener noreferrer">
-                        <Github className="text-foreground/70 hover:text-primary transition" size={24} />
-                        </a>
-                        <a href="https://www.linkedin.com/in/seanmichaelarriolaborje" target="_blank" rel="noopener noreferrer">
-                        <Linkedin className="text-foreground/70 hover:text-primary transition" size={24} />
-                        </a>
-                        <a href="https://www.facebook.com/seanmichael.borje.7/" target="_blank" rel="noopener noreferrer">
-                        <Facebook className="text-foreground/70 hover:text-primary transition" size={24} />
-                        </a>
-                    </div>
-                </div>
+            <div className="flex items-center gap-4">
+              {socialLinks.map((link) => {
+                const SocialIcon = link.icon;
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.label}
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    <SocialIcon size={16} strokeWidth={1.5} />
+                  </a>
+                );
+              })}
             </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            className="nav-bar__toggle relative z-[130] flex h-10 w-10 items-center justify-center md:hidden"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
+          </button>
         </div>
-    </nav>
-}
+
+        <div className="nav-bar__progress-track h-px w-full">
+          <div ref={progressRef} className="scroll-progress h-full w-full" />
+        </div>
+      </header>
+
+      <div
+        className={cn(
+          "mobile-menu fixed inset-x-0 bottom-0 top-[4.75rem] z-[110] md:hidden",
+          isMenuOpen ? "mobile-menu--open pointer-events-auto" : "pointer-events-none"
+        )}
+        aria-hidden={!isMenuOpen}
+      >
+        <div className="mobile-menu__backdrop" aria-hidden="true" />
+
+        <div className="mobile-menu__panel">
+          <div className="container flex h-full flex-col">
+            <div className="mobile-menu__header flex items-center justify-between border-b border-[var(--nav-line)] py-5">
+              <span className="text-label text-muted-foreground">Navigation</span>
+              <span className="text-label text-muted-foreground/70">Menu</span>
+            </div>
+
+            <nav className="mobile-menu__links flex flex-1 flex-col justify-center gap-1 py-8">
+              {navItems.map((item, index) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  ref={(el) => {
+                    linksRef.current[index] = el;
+                  }}
+                  onClick={(event) => onNavClick(event, item.href)}
+                  className="mobile-menu__link group"
+                >
+                  <span className="mobile-menu__link-index">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="menu-link mobile-menu__link-label">{item.name}</span>
+                </a>
+              ))}
+            </nav>
+
+            <div className="mobile-menu__footer border-t border-[var(--nav-line)] py-8">
+              <p className="text-label mb-5 text-muted-foreground">Connect</p>
+              <div className="flex gap-5">
+                {socialLinks.map((link) => {
+                  const SocialIcon = link.icon;
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.label}
+                      className="mobile-menu__social"
+                    >
+                      <SocialIcon size={20} strokeWidth={1.5} />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

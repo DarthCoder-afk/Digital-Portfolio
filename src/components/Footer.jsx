@@ -1,26 +1,30 @@
-import { X, Menu, Github, Linkedin, Instagram, Facebook } from "lucide-react";
 export const Footer = () => {
-    return <footer className="w-full border-t border-border bg-[#f8f9fa] mt-12">
-     <div className="max-w-6xl mx-auto px-4 py-6 flex flex-col items-center text-center text-sm text-muted-foreground space-y-2">
-        
-        {/* Left side - Copyright */}
-        <p className="text-center md:text-left text-xs">
+  return (
+    <footer className="section-surface-dark relative border-t border-border">
+      <div className="container flex flex-col items-start justify-between gap-6 py-10 text-sm text-muted-foreground md:flex-row md:items-center">
+        <p className="text-xs">
           © {new Date().getFullYear()} Sean Michael Borje. All rights reserved.
         </p>
 
-        {/* Right side - Tech stack note */}
-       <p className="flex flex-wrap justify-center items-center gap-2 text-xs">
-          Built with 
-          <span className="flex items-center gap-1">
-            <i className="devicon-react-original text-lg"></i> React
-          </span>, styled with 
-          <span className="flex items-center gap-1">
-            <i className="devicon-tailwindcss-plain text-lg"></i> Tailwind CSS
-          </span>, and deployed on 
-          <span className="flex items-center gap-1">
-            <i className="devicon-vercel-original text-lg"></i> Vercel
-          </span>.
+        <p className="flex flex-wrap items-center gap-2 text-xs">
+          Built with
+          <span className="inline-flex items-center gap-1 text-foreground/80">
+            <i className="devicon-react-original text-base" />
+            React
+          </span>
+          , styled with
+          <span className="inline-flex items-center gap-1 text-foreground/80">
+            <i className="devicon-tailwindcss-plain text-base" />
+            Tailwind CSS
+          </span>
+          , and deployed on
+          <span className="inline-flex items-center gap-1 text-foreground/80">
+            <i className="devicon-vercel-original text-base" />
+            Vercel
+          </span>
+          .
         </p>
       </div>
     </footer>
-}
+  );
+};

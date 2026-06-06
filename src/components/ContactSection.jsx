@@ -1,199 +1,263 @@
-import { Mail, MapPin, Github, Linkedin, Instagram, Facebook, SendIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Facebook, Mail, MapPin, SendIcon } from "lucide-react";
 import emailjs from "@emailjs/browser";
-import { useRef, useState} from "react";
-import { useToast } from "@/hooks/use-toast"
-import {motion} from "framer-motion"
-import { fadeIn } from "../variants";
+import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { useToast } from "@/hooks/use-toast";
 
+const channels = [
+  {
+    id: "01",
+    label: "Facebook",
+    value: "Sean Michael Borje",
+    href: "https://www.facebook.com/seanmichael.borje.7/",
+    icon: Facebook,
+  },
+  {
+    id: "02",
+    label: "Email",
+    value: "seanmichaelborje179@gmail.com",
+    href: "mailto:seanmichaelborje179@gmail.com",
+    icon: Mail,
+  },
+  {
+    id: "03",
+    label: "Location",
+    value: "Manila, Philippines",
+    icon: MapPin,
+  },
+];
+
+function BlueprintFrame({ children, className = "" }) {
+  return (
+    <div className={`about-frame ${className}`.trim()}>
+      <span className="about-frame__corner about-frame__corner--tl" aria-hidden="true" />
+      <span className="about-frame__corner about-frame__corner--tr" aria-hidden="true" />
+      <span className="about-frame__corner about-frame__corner--bl" aria-hidden="true" />
+      <span className="about-frame__corner about-frame__corner--br" aria-hidden="true" />
+      <span className="about-frame__guide about-frame__guide--top" aria-hidden="true" />
+      <span className="about-frame__guide about-frame__guide--left" aria-hidden="true" />
+      {children}
+    </div>
+  );
+}
 
 export const ContactSection = () => {
-    const {toast} = useToast();
-    const [isSubmitting, setIsSubmitting] = useState();
-    const form = useRef();
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const sectionRef = useRef(null);
+  const headlineRef = useRef(null);
+  const channelsRef = useRef(null);
+  const formPanelRef = useRef(null);
+  const form = useRef(null);
 
-    const SendEmail = (e) => {
-        e.preventDefault();
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-        setIsSubmitting(true);
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(() => {
+        toast({
+          title: "Message Sent Successfully",
+          description: "Thank you for the message. I'll get back to you as soon as possible.",
+        });
+        setIsSubmitting(false);
+        form.current.reset();
+      })
+      .catch(() => {
+        toast({
+          title: "Message Failed to Send",
+          description: "Please try again later.",
+        });
+        setIsSubmitting(false);
+      });
+  };
 
-        emailjs.sendForm( import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, form.current, import.meta.env.VITE_EMAILJS_PUBLIC_KEY).then(
-            (result) => {
-                toast({
-                    title: "Message Sent Successfuly",
-                    description: "Thank you for the message. I'll get back to you as soon as possible.",                    
-                })
-                setIsSubmitting(false);
-                form.current.reset();
-            },
-            (error) => {
-                toast({
-                    title: "Message Failed to Send",
-                    description: "Please try again later.",
-                    });
-                setIsSubmitting(false);
-            }
-        )
-    }
-    return <section id="contact" className="py-24 px-4 relative scroll-mt-24">
-        <div className="container mx-auto max-w-5xl">
-            <motion.h2 
-            variants={fadeIn('up', 0.2)}
-            initial="hidden"
-            whileInView={"show"}
-            viewport={{ once: true, amount: 0.3 }} 
-            className="text-3xl md:text-4xl font-bold mb-4 text-center">Get In Touch</motion.h2>
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
 
-            <motion.p 
-            variants={fadeIn('left', 0.2)}
-            initial="hidden"
-            whileInView={"show"}
-            viewport={{ once: true, amount: 0.3 }} 
-            className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">If you have a project in mind or are interested in collaboration, 
-                please don’t hesitate to get in touch. I am always open to exploring new opportunities and professional engagements.</motion.p>
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        headlineRef.current,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <motion.div 
-                variants={fadeIn('right', 0.2)}
-                initial="hidden"
-                whileInView={"show"}
-                viewport={{ once: true, amount: 0.3 }} 
-                className="space-y-8">
-                    <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
-                    <div className="space-y-6 justify-center">
+      gsap.fromTo(
+        channelsRef.current,
+        { y: 36, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          delay: 0.1,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
 
-                        <div className="flex flex-items-start space-x-4">
-                            <div className="p-3 rounded-full bg-primary/10">
-                                <Facebook className="w-6 h-6 text-primary"/>
-                            </div>
-                            <div className="items-center my-auto">
-                                <a href="https://www.facebook.com/seanmichael.borje.7/" className="text-muted-foreground">Sean Michael Borje</a>
-                            </div>
-                        </div>
-                        
-                        <div className="flex flex-items-start space-x-4">
-                            <div className="p-3 rounded-full bg-primary/10">
-                                <Mail className="w-6 h-6 text-primary"/>
-                            </div>
-                            <div className="items-center my-auto">
-                                <a href="mailto:seanmichaelborje179@gmail.com" className="text-muted-foreground">seanmichaelborje179@gmail.com</a>
-                            </div>
-                        </div>
+      gsap.fromTo(
+        formPanelRef.current,
+        { y: 48, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.1,
+          ease: "power3.out",
+          delay: 0.15,
+          scrollTrigger: {
+            trigger: formPanelRef.current,
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }, sectionRef);
 
-                        <div className="flex flex-items-start space-x-4">
-                            <div className="p-3 rounded-full bg-primary/10">
-                                <MapPin className="w-6 h-6 text-primary"/>
-                            </div>
-                            <div className="items-center my-auto">
-                                <a className="text-muted-foreground">Manila, Philippines</a>
-                            </div>
-                        </div>
+    return () => ctx.revert();
+  }, []);
 
-                        
-                    </div>           
-                </motion.div>
+  return (
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="contact-section section-surface-light relative scroll-mt-24"
+    >
+      <div className="section-padding border-t border-border">
+        <div className="container">
+          <div className="contact-section__header mb-16 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:mb-20">
+            <p className="text-label text-muted-foreground">06 — Contact</p>
+            <p className="text-label text-muted-foreground/70">Open to collaborate</p>
+          </div>
 
-                <motion.div 
-                variants={fadeIn('left', 0.2)}
-                initial="hidden"
-                whileInView={"show"}
-                viewport={{ once: true, amount: 0.3 }} 
-                className="bg-card p-8 border border-[#dee2e6] rounded-lg drop-shadow-lg">
-                    <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
+          <div className="grid items-start gap-14 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-16 xl:gap-20">
+            <div className="lg:sticky lg:top-28">
+              <div ref={headlineRef} className="max-w-xl">
+                <h2 className="text-display-lg text-foreground">
+                  Let&apos;s build
+                  <br />
+                  <span className="text-muted-foreground">something together</span>
+                </h2>
+                <p className="mt-8 max-w-md leading-relaxed text-muted-foreground md:text-lg">
+                  Have a project in mind or interested in working together? Send a
+                  message — I&apos;m always open to new opportunities and professional
+                  engagements.
+                </p>
+              </div>
 
-                    <form action="" ref={form} onSubmit={SendEmail} className="space-y-6">
-                      <div className="relative">
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                required
-                                className="peer w-full px-4 pt-5 pb-2 rounded-md border border-input bg-card 
-                                        focus:outline-hidden focus:ring-2 focus:ring-primary 
-                                        placeholder-transparent"
-                                placeholder=" "
-                            />
-
-                            <label
-                                htmlFor="name"
-                                className="absolute left-4 top-3 text-gray-500 transition-all duration-200 
-                                        peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
-                                        peer-focus:-top-2 peer-focus:text-sm peer-focus:text-[#212529] 
-                                        peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm peer-[&:not(:placeholder-shown)]:text-[#212529]
-                                        bg-card px-1"
-                            >
-                                Full Name
-                            </label>
-                        </div>
-
-                        <div className="relative">
-                            <input type="email"
-                            id="email"
-                            name="email"
-                            required
-                            className="peer w-full px-4 pt-5 pb-2 rounded-md border border-input bg-card 
-                                        focus:outline-hidden focus:ring-2 focus:ring-primary 
-                                        placeholder-transparent"
-                            placeholder=" " />
-                            <label htmlFor="email" className="absolute left-4 top-3 text-gray-500 transition-all duration-200 
-                            peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
-                            peer-focus:-top-2 peer-focus:text-sm peer-focus:text-[#212529] 
-                            peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm peer-[&:not(:placeholder-shown)]:text-[#212529]
-                            bg-card px-1">Email </label>
-                           
-                        </div>
-
-                         <div className="relative">
-                            <input type="text"
-                            id="subject"
-                            name="subject"
-                            required
-                            className="peer w-full px-4 pt-5 pb-2 rounded-md border border-input bg-card 
-                                        focus:outline-hidden focus:ring-2 focus:ring-primary 
-                                        placeholder-transparent"
-                            placeholder=" " />
-                            <label htmlFor="subject" className="absolute left-4 top-3 text-gray-500 transition-all duration-200 
-                            peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
-                            peer-focus:-top-2 peer-focus:text-sm peer-focus:text-[#212529] 
-                            peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm peer-[&:not(:placeholder-shown)]:text-[#212529]
-                            bg-card px-1">Subject</label>
-    
-                        </div>
-
-                        <div className="relative">
-                            <textarea 
-                            id="message"
-                            name="message"
-                            required
-                            className="peer w-full px-4 pt-5 pb-2 rounded-md border border-input bg-card 
-                                        focus:outline-hidden focus:ring-2 focus:ring-primary 
-                                        placeholder-transparent"
-                            placeholder=" " />
-                            <label htmlFor="message" className="absolute left-4 top-3 text-gray-500 transition-all duration-200 
-                            peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
-                            peer-focus:-top-2 peer-focus:text-sm peer-focus:text-[#212529] 
-                            peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:text-sm peer-[&:not(:placeholder-shown)]:text-[#212529]
-                            bg-card px-1">Message </label>
-                        </div>
-
-                        <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="relative w-full flex items-center justify-center gap-2 bg-[#212529] px-5 py-3 text-sm md:text-base rounded-full border border-[#212529] font-semibold overflow-hidden group cursor-pointer"
-                        >
-                            {/* Text */}
-                            <span className="relative z-10 text-[#f8f9fa] transition-colors duration-500 group-hover:text-[#212529] flex items-center gap-2">
-                                <SendIcon size={16} />
-                                {isSubmitting ? "Sending..." : "Send Message"}
-                            </span>
-
-                            {/* Liquid fill effect */}
-                            <span className="absolute inset-0 bg-[#f8f9fa] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></span>
-                            </button>
-                    </form>
-                </motion.div>
-
+              <div ref={channelsRef} className="contact-channels mt-12">
+                {channels.map((channel) => (
+                  <ContactChannel key={channel.id} {...channel} />
+                ))}
+              </div>
             </div>
+
+            <div ref={formPanelRef}>
+              <BlueprintFrame className="contact-form-frame">
+                <div className="contact-form-frame__header">
+                  <span className="text-label text-muted-foreground">Message</span>
+                  <span className="text-label text-foreground/70">Direct inquiry</span>
+                </div>
+
+                <form ref={form} onSubmit={sendEmail} className="contact-form">
+                  <ContactField id="name" name="name" label="Full Name" />
+                  <ContactField id="email" name="email" type="email" label="Email Address" />
+                  <ContactField id="subject" name="subject" label="Subject" />
+                  <ContactField id="message" name="message" label="Message" multiline rows={5} />
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="cinematic-button-primary w-full disabled:opacity-60"
+                  >
+                    <SendIcon size={16} />
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </button>
+                </form>
+              </BlueprintFrame>
+            </div>
+          </div>
         </div>
-</section>
+      </div>
+    </section>
+  );
+};
+
+function ContactChannel({ id, label, value, href, icon: Icon }) {
+  const content = (
+    <>
+      <div className="contact-channel__meta">
+        <span className="contact-channel__index">{id}</span>
+        <span className="text-label text-muted-foreground">{label}</span>
+      </div>
+      <div className="contact-channel__body">
+        <div className="contact-channel__icon" aria-hidden="true">
+          <Icon size={18} strokeWidth={1.5} />
+        </div>
+        <p className="contact-channel__value">{value}</p>
+        {href && (
+          <span className="contact-channel__arrow" aria-hidden="true">
+            <ArrowUpRight size={16} />
+          </span>
+        )}
+      </div>
+    </>
+  );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        className="contact-channel group"
+        target={href.startsWith("http") ? "_blank" : undefined}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return <div className="contact-channel">{content}</div>;
+}
+
+function ContactField({ id, name, label, type = "text", multiline = false, rows = 4 }) {
+  const sharedProps = {
+    id,
+    name,
+    required: true,
+    className: "contact-field__input peer",
+    placeholder: " ",
+  };
+
+  return (
+    <div className="contact-field">
+      {multiline ? (
+        <textarea {...sharedProps} rows={rows} />
+      ) : (
+        <input type={type} {...sharedProps} />
+      )}
+      <label htmlFor={id} className="contact-field__label">
+        {label}
+      </label>
+    </div>
+  );
 }

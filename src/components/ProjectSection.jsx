@@ -1,10 +1,10 @@
-import { ExternalLink, Github } from "lucide-react";
-import { motion } from "framer-motion";
-import { fadeIn } from "../variants";
-import toast, { Toaster } from "react-hot-toast"; // ✅ import toast
+import { useEffect, useRef } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const proj = [
-    {
+  {
     id: 1,
     title: "HeartLink: Dating App",
     description:
@@ -13,7 +13,6 @@ const proj = [
     tags: ["Next.js", "TypeScript", "Socket.io", "Node.js", "MongoDB"],
     role: "Full Stack Development & UI Design",
     year: "2025",
-    bg: "bg-[#e39695]",
     demoUrl: "https://datingapp-heartlink.vercel.app/",
     githubUrl: "#",
   },
@@ -26,7 +25,6 @@ const proj = [
     tags: ["MongoDB", "Express", "React", "Node.js"],
     role: "Full Stack Development",
     year: "2025",
-    bg: "bg-[#3b734a]",
     demoUrl: "https://noteapp-yn7h.onrender.com/",
     githubUrl: "#",
   },
@@ -39,7 +37,6 @@ const proj = [
     tags: ["HTML", "CSS", "Bootstrap", "PHP", "JavaScript", "MySQL"],
     role: "Full Stack Development & Design",
     year: "2025",
-    bg: "bg-[#52b788]",
     demoUrl: "#",
     githubUrl: "#",
   },
@@ -52,146 +49,232 @@ const proj = [
     tags: ["HTML", "CSS", "Bootstrap", "PHP", "JavaScript", "MySQL"],
     role: "Backend Development & Database Design",
     year: "2025",
-    bg: "bg-[#80ed99]",
     demoUrl: "#",
     githubUrl: "#",
   },
-  
- 
 ];
 
+function BlueprintFrame({ children, className = "" }) {
+  return (
+    <div className={`about-frame ${className}`.trim()}>
+      <span className="about-frame__corner about-frame__corner--tl" aria-hidden="true" />
+      <span className="about-frame__corner about-frame__corner--tr" aria-hidden="true" />
+      <span className="about-frame__corner about-frame__corner--bl" aria-hidden="true" />
+      <span className="about-frame__corner about-frame__corner--br" aria-hidden="true" />
+      <span className="about-frame__guide about-frame__guide--top" aria-hidden="true" />
+      <span className="about-frame__guide about-frame__guide--left" aria-hidden="true" />
+      {children}
+    </div>
+  );
+}
+
 export const ProjectSection = () => {
+  const sectionRef = useRef(null);
+  const headlineRef = useRef(null);
+  const cardsRef = useRef([]);
+
   const handleUnavailableDemo = (title) => {
-    toast.error(`Demo for "${title}" is not available yet 😅`, {
+    toast.error(`Demo for "${title}" is not available yet`, {
       duration: 2500,
       position: "bottom-right",
       style: {
-        background: "#f8fafc",
-        color: "#1a1a1a",
-        borderRadius: "8px",
-        padding: "12px 16px",
+        background: "#141416",
+        color: "#f5f5f4",
+        border: "1px solid #27272a",
+        borderRadius: "9999px",
+        padding: "12px 18px",
         fontSize: "14px",
       },
     });
   };
 
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        headlineRef.current,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      cardsRef.current.forEach((card) => {
+        if (!card) return;
+
+        gsap.fromTo(
+          card,
+          { y: 56, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="projects" className="py-24 px-4 relative scroll-mt-24">
-      <Toaster /> {/* ✅ Toast container */}
+    <section
+      id="projects"
+      ref={sectionRef}
+      className="projects-section section-surface-dark relative scroll-mt-24"
+    >
+      <Toaster />
 
-      <div className="container mx-auto max-w-5xl">
-        <motion.h2
-          variants={fadeIn("up", 0.2)}
-          initial="hidden"
-          whileInView={"show"}
-          viewport={{ once: true, amount: 0.3 }}
-          className="text-3xl md:text-4xl font-bold mb-4 text-center"
-        >
-          Featured Projects
-        </motion.h2>
+      <div className="section-padding border-t border-border">
+        <div className="container">
+          <div className="projects-section__header mb-16 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:mb-20">
+            <p className="text-label text-muted-foreground">05 — Projects</p>
+            <p className="text-label text-muted-foreground/70">{proj.length} featured builds</p>
+          </div>
 
-        <motion.p
-          variants={fadeIn("left", 0.2)}
-          initial="hidden"
-          whileInView={"show"}
-          viewport={{ once: true, amount: 0.3 }}
-          className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto"
-        >
-          Here are some of my recent projects. Each project was carefully
-          crafted with attention to detail, client-based, performance and
-          user-experience
-        </motion.p>
+          <div className="grid items-start gap-14 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-16 xl:gap-20">
+            <div className="lg:sticky lg:top-28">
+              <div ref={headlineRef} className="max-w-xl">
+                <h2 className="text-display-lg text-foreground">
+                  Selected work
+                  <br />
+                  <span className="text-muted-foreground">that ships</span>
+                </h2>
+                <p className="mt-8 max-w-md leading-relaxed text-muted-foreground md:text-lg">
+                  Recent projects built with attention to detail, performance, and
+                  user experience — from full-stack apps to government systems.
+                </p>
+              </div>
 
-        {/* Project Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 group">
-          {proj.map((project) => {
-            const isDemoAvailable = project.demoUrl && project.demoUrl !== "#";
+              <div className="mt-12 hidden lg:block">
+                <a
+                  href="https://github.com/DarthCoder-afk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cinematic-button-secondary"
+                >
+                  View All on GitHub
+                  <ExternalLink size={15} />
+                </a>
+              </div>
+            </div>
 
-            return (
-              <motion.div
-                key={project.id}
-                variants={fadeIn("up", 0.2)}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.3 }}
-                className="flex flex-col transition-all duration-300 group-hover:grayscale-100 hover:filter-none"
-              >
-                {isDemoAvailable ? (
-                  <a
-                    href={project.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
+            <div className="project-showcase">
+              {proj.map((project, index) => {
+                const isDemoAvailable = project.demoUrl && project.demoUrl !== "#";
+                const indexLabel = String(index + 1).padStart(2, "0");
+
+                return (
+                  <article
+                    key={project.id}
+                    ref={(el) => {
+                      cardsRef.current[index] = el;
+                    }}
+                    className="project-card"
                   >
-                    <div
-                      className={`w-full h-[300px] rounded-xl ${project.bg} flex items-center justify-center overflow-hidden`}
-                    >
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="rounded-xl shadow-lg w-[90%] sm:w-[80%] md:w-[90%] transition duration-300 ease-in-out hover:scale-105"
-                      />
+                    <div className="project-card__top">
+                      <span className="project-card__index">{indexLabel}</span>
+                      <span className="text-label text-muted-foreground">{project.year}</span>
                     </div>
-                  </a>
-                ) : (
-                  <button
-                    onClick={() => handleUnavailableDemo(project.title)}
-                    className={`relative w-full h-[300px] rounded-xl ${project.bg} flex items-center justify-center overflow-hidden group`}
-                  >
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="rounded-xl shadow-lg w-[90%] sm:w-[80%] md:w-[90%] opacity-80 transition duration-300 ease-in-out group-hover:opacity-60"
-                    />
-                    <div
-                      className="absolute inset-0 flex items-center justify-center 
-                      bg-black/60 opacity-0 group-hover:opacity-100
-                      transition-opacity duration-300 rounded-xl"
-                    >
-                      <span className="text-white text-sm bg-black/70 px-4 py-2 rounded-full">
-                        Demo not available
-                      </span>
-                    </div>
-                  </button>
-                )}
 
-                {/* Text Section */}
-                <div className="mt-4 text-sm text-muted-foreground">
-                  <div className="flex justify-between items-start mb-1">
-                    <h3 className="text-lg font-semibold text-foreground">
-                      {project.title}
-                    </h3>
-                    <p>{project.year}</p>
-                  </div>
-                  <p className="text-xs leading-relaxed">
-                    {project.description}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
+                    <BlueprintFrame className="project-card__frame">
+                      {isDemoAvailable ? (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-card__media group block"
+                        >
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                            loading="lazy"
+                          />
+                          <div className="project-card__media-overlay" aria-hidden="true" />
+                          <span className="project-card__media-cta">
+                            Open demo
+                            <ArrowUpRight size={14} />
+                          </span>
+                        </a>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => handleUnavailableDemo(project.title)}
+                          className="project-card__media group w-full text-left"
+                        >
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="h-full w-full object-cover opacity-75 transition duration-700 group-hover:scale-[1.02]"
+                            loading="lazy"
+                          />
+                          <div className="project-card__media-overlay project-card__media-overlay--dim" aria-hidden="true" />
+                          <span className="project-card__media-cta project-card__media-cta--muted">
+                            Demo unavailable
+                          </span>
+                        </button>
+                      )}
+                    </BlueprintFrame>
+
+                    <div className="project-card__body">
+                      <p className="text-label text-muted-foreground">{project.role}</p>
+                      <h3 className="project-card__title">{project.title}</h3>
+                      <p className="project-card__description">{project.description}</p>
+
+                      <div className="project-card__tags">
+                        {project.tags.map((tag) => (
+                          <span key={tag} className="experience-tag">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {isDemoAvailable && (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-card__link"
+                        >
+                          View live demo
+                          <ExternalLink size={14} />
+                        </a>
+                      )}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mt-16 lg:hidden">
+            <a
+              href="https://github.com/DarthCoder-afk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cinematic-button-secondary"
+            >
+              View All on GitHub
+              <ExternalLink size={15} />
+            </a>
+          </div>
         </div>
-
-        {/* GitHub Button */}
-        <motion.div
-          variants={fadeIn("up", 0.2)}
-          initial="hidden"
-          whileInView={"show"}
-          viewport={{ once: true, amount: 0.3 }}
-          className="mt-12"
-        >
-          <a
-            href="https://github.com/DarthCoder-afk"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative bg-[#f8f9fa] inline-block px-6 py-3 text-sm md:text-base rounded-full border border-[#212529] font-semibold overflow-hidden group"
-          >
-            <span className="relative z-10 text-primary transition-colors duration-500 group-hover:text-[#f8f9fa]">
-              View All Projects
-            </span>
-            <span className="absolute inset-0 bg-[#212529] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></span>
-          </a>
-        </motion.div>
       </div>
     </section>
   );

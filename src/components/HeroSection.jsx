@@ -1,117 +1,153 @@
-import { ArrowDown, ChevronDownIcon } from "lucide-react"
-import TextType from "./TextType"
-import {motion} from "framer-motion"
-import { fadeIn } from "../variants";
-
+import { useEffect, useRef } from "react";
+import { ArrowDown } from "lucide-react";
+import { gsap, SplitText, prefersReducedMotion } from "@/lib/gsap";
+import { scrollToSection } from "@/lib/scrollToSection";
+import ProfileCard from "./ProfileCard";
 
 export const HeroSection = () => {
-    return <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4">
-        <div className="container max-w-4xl mx-auto text-center z-10">
+  const sectionRef = useRef(null);
+  const headlineRef = useRef(null);
+  const sublineRef = useRef(null);
+  const cardRef = useRef(null);
+  const scrollCueRef = useRef(null);
 
-            <div className="space-y-4 mb-8">
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
 
-                <motion.div className="relative w-80 h-80 mx-auto mb-7"
-                      variants={fadeIn('down', 1)}
-                        initial="hidden"
-                        whileInView={"show"}
-                        viewport={{ once: true, amount: 0.1 }}>
-                    {/* SVG blob background */}
-                    <svg
-                        viewBox="0 0 900 600"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="absolute w-full h-full scale-[1.887] -bottom-4.5 -right-0 z-0"
-                  
-                    >
-                        <g transform="translate(434.40364239102655 239.21740799878174)">
-                        <path
-                          d="M225.7 -42.1C262.4 39.7 241.4 171.6 160.6 233.2C79.7 294.8 -60.9 286.1 -137.9 222.5C-214.9 158.8 -228.2 40.2 -194.6 -37.3C-161 -114.8 -80.5 -151.2 7 -153.4C94.5 -155.7 188.9 -123.9 225.7 -42.1" fill="#212529"
-                        />
-                        </g>
-                    </svg>
-                     <img
-                        src="./profile/formal.png" 
-                        alt="Sean Michael Borje"
-                        className="relative rounded-full w-full h-full object-cover z-10 drop-shadow-xl"
-                        loading="lazy"
-                        />
-                </motion.div>
-              
-               
-             
-                <motion.h1 
-                variants={fadeIn('up', 1)}
-                initial="hidden"
-                whileInView={"show"}
-                viewport={{ once: true, amount: 0.3 }}
-                className="text-3xl md:text-5xl font-bold text-primary tracking-light ">
-                    <motion.div>
-                        <TextType 
-                            text={["Hey there!", "I'm Sean, your next dev!", "Let's build something amazing!"]}
-                            typingSpeed={75}
-                            pauseDuration={1500}
-                            showCursor={true}
-                            cursorCharacter="|"
-                        />
-                    </motion.div>
-                </motion.h1>
-                <motion.p 
-                variants={fadeIn('up', 2)}
-                initial="hidden"
-                whileInView={"show"}
-                viewport={{ once: true, amount: 0.3 }}
-                className="text-md md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                    I’m a passionate software developer who loves turning ideas into interactive experiences.
-                    From front-end design to back-end logic, I build tools that make a difference 🧑‍💻💻
-                </motion.p>
+    const ctx = gsap.context(() => {
+      const headlineSplit = new SplitText(headlineRef.current, {
+        type: "lines,words",
+        linesClass: "split-line",
+        wordsClass: "split-word",
+      });
 
+      headlineRef.current?.classList.add("split-parent");
+
+      gsap.fromTo(
+        headlineSplit.words,
+        { y: 80, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          stagger: 0.04,
+          ease: "power3.out",
+          delay: 0.2,
+        }
+      );
+
+      gsap.fromTo(
+        sublineRef.current,
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.8 }
+      );
+
+      gsap.fromTo(
+        ".hero-cta",
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: "power3.out", delay: 1 }
+      );
+
+      gsap.fromTo(
+        cardRef.current,
+        { y: 40 },
+        { y: 0, duration: 1.1, ease: "power3.out", delay: 0.6 }
+      );
+
+      gsap.to(scrollCueRef.current, {
+        y: 8,
+        repeat: -1,
+        yoyo: true,
+        duration: 1.4,
+        ease: "sine.inOut",
+        delay: 1.5,
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleContactClick = () => {
+    scrollToSection("contact");
+    window.history.pushState(null, "", "#contact");
+  };
+
+  return (
+    <section
+      id="hero"
+      ref={sectionRef}
+      className="section-surface-dark relative flex min-h-0 flex-col justify-center overflow-x-clip py-20 pt-24 sm:py-24 sm:pt-28 md:min-h-screen md:py-32 lg:py-36"
+    >
+      <div className="container relative min-w-0">
+        <div className="grid min-w-0 items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+          <div className="order-2 min-w-0 max-w-5xl lg:order-1">
+            <p className="text-label mb-4 text-muted-foreground sm:mb-6">Software Engineer</p>
+
+            <h1
+              ref={headlineRef}
+              className="hero-headline text-display-xl mb-6 text-foreground sm:mb-8"
+            >
+              Sean Michael
+              <br />
+              Borje
+            </h1>
+
+            <p
+              ref={sublineRef}
+              className="mb-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:mb-10 md:text-lg"
+            >
+              I&apos;m a passionate software engineer who loves turning ideas into
+              interactive experiences. From front-end design to back-end logic, I
+              build tools that make a difference.
+            </p>
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+              <a
+                href="#projects"
+                className="hero-cta cinematic-button-primary w-full justify-center sm:w-auto"
+              >
+                Explore Projects
+              </a>
+              <a
+                href="#contact"
+                className="hero-cta cinematic-button-secondary w-full justify-center sm:w-auto"
+              >
+                Connect With Me
+              </a>
             </div>
+          </div>
 
-            <div className="flex flex-row flex-wrap gap-5 pt-0 justify-center items-center">
-                <motion.div 
-                variants={fadeIn('up', 3)}
-                initial="hidden"
-                whileInView={"show"}
-                viewport={{ once: true, amount: 0.3 }}
-                className="mt-8">
-                     <a
-                            href="#project"
-                            className="relative bg-[#212529] inline-block px-5 py-3 text-sm md:text-base rounded-full border border-[#212529] font-semibold overflow-hidden group"
-                        >
-                            {/* Text */}
-                            <span className="relative z-10 text-[#f8f9fa] transition-colors duration-500 group-hover:text-[#212529]">
-                            Explore Projects
-                            </span>
-
-                            {/* Liquid fill effect */}
-                            <span className="absolute inset-0 bg-[#f8f9fa] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></span>
-                        </a>
-                </motion.div>
-
-                <motion.div 
-                variants={fadeIn('up', 4)}
-                initial="hidden"
-                whileInView={"show"}
-                viewport={{ once: true, amount: 0.3 }}
-                className="mt-8">
-                    <a
-                            href="#contact"
-                            className="relative bg-[#f8f9fa] inline-block px-5 py-3 text-sm md:text-base rounded-full border border-[#212529] font-semibold overflow-hidden group"
-                        >
-                            {/* Text */}
-                            <span className="relative z-10 text-primary transition-colors duration-500 group-hover:text-[#f8f9fa]">
-                            Connect With Me
-                            </span>
-
-                            {/* Liquid fill effect */}
-                            <span className="absolute inset-0 bg-[#212529] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></span>
-                        </a>
-                </motion.div>
-            </div>
-
-           
-
+          <div
+            ref={cardRef}
+            className="hero-profile-card order-1 mx-auto w-full min-w-0 max-w-[min(100%,340px)] lg:order-2 lg:mx-0 lg:justify-self-end"
+          >
+            <ProfileCard
+              name="Sean Borje"
+              title="Software Engineer"
+              handle="DarthCoder-afk"
+              status="Open to work"
+              contactText="Contact Me"
+              avatarUrl="/profile/formal.png"
+              showUserInfo={false}
+              enableTilt={true}
+              enableMobileTilt={true}
+              onContactClick={handleContactClick}
+              behindGlowColor="rgba(125, 190, 255, 0.67)"
+              iconUrl="/assets/demo/iconpattern.png"
+              behindGlowEnabled
+              innerGradient="linear-gradient(145deg, rgba(18, 18, 18, 0.95) 0%, rgba(40, 40, 40, 0.55) 100%)"
+            />
+          </div>
         </div>
+      </div>
 
-
+      <div
+        ref={scrollCueRef}
+        className="container mt-10 flex min-w-0 items-center gap-3 text-muted-foreground sm:mt-16"
+      >
+        <ArrowDown size={16} strokeWidth={1.5} />
+        <span className="text-label">Scroll to explore</span>
+      </div>
     </section>
-}
+  );
+};
