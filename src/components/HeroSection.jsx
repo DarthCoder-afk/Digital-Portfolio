@@ -81,15 +81,15 @@ export const HeroSection = () => {
       <div className="container relative min-w-0">
         <div className="grid min-w-0 items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <div className="order-2 min-w-0 max-w-5xl lg:order-1">
-            <p className="text-label mb-4 text-muted-foreground sm:mb-6">Software Engineer</p>
+            <p className="text-label mb-4 text-muted-foreground sm:mb-6">Full-Stack Developer</p>
 
             <h1
               ref={headlineRef}
-              className="hero-headline text-display-xl mb-6 text-foreground sm:mb-8"
+              className="hero-headline text-display-lg mb-10 text-foreground sm:mb-8"
             >
-              Sean Michael
+              Building digital experiences
               <br />
-              Borje
+              that make a difference
             </h1>
 
             <p
@@ -127,10 +127,10 @@ export const HeroSection = () => {
               handle="DarthCoder-afk"
               status="Open to work"
               contactText="Contact Me"
-              avatarUrl="/profile/formal.png"
+              avatarUrl="/profile/hero.png"
               showUserInfo={false}
               enableTilt={true}
-              enableMobileTilt={false}
+              enableMobileTilt={true}
               onContactClick={handleContactClick}
               behindGlowColor="rgba(125, 190, 255, 0.67)"
               iconUrl="/card/pattern.png"
