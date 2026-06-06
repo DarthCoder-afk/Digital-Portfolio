@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowDown } from "lucide-react";
 import { gsap, SplitText, prefersReducedMotion } from "@/lib/gsap";
+import { scrollToSection } from "@/lib/scrollToSection";
 import ProfileCard from "./ProfileCard";
 
 export const HeroSection = () => {
@@ -67,7 +68,8 @@ export const HeroSection = () => {
   }, []);
 
   const handleContactClick = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    scrollToSection("contact");
+    window.history.pushState(null, "", "#contact");
   };
 
   return (

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { ScrollSmoother, prefersReducedMotion } from "@/lib/gsap";
+import { handleSectionLinkClick } from "@/lib/scrollToSection";
 import { BlueprintGrid } from "./BlueprintGrid";
 
 const backgroundLayers = (
@@ -31,6 +32,24 @@ export function SmoothScroll({ children, fixed }) {
       smootherRef.current = null;
     };
   }, [reducedMotion]);
+
+  useEffect(() => {
+    const content = document.getElementById("smooth-content");
+    if (!content) return;
+
+    const onContentClick = (event) => {
+      const anchor = event.target.closest('a[href^="#"]');
+      if (!anchor) return;
+
+      const href = anchor.getAttribute("href");
+      if (!href || href === "#") return;
+
+      handleSectionLinkClick(event, href);
+    };
+
+    content.addEventListener("click", onContentClick);
+    return () => content.removeEventListener("click", onContentClick);
+  }, []);
 
   if (reducedMotion) {
     return (

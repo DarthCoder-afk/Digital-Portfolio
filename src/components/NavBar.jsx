@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Github, Linkedin, Facebook, Menu, X } from "lucide-react";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+import { handleSectionLinkClick } from "@/lib/scrollToSection";
 
 const navItems = [
   { name: "Home", href: "#hero" },
@@ -74,12 +75,22 @@ export const NavBar = () => {
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  const onNavClick = (event, href) => {
+    handleSectionLinkClick(event, href, {
+      onNavigate: () => {
+        closeMenu();
+        document.body.style.overflow = "";
+      },
+    });
+  };
+
   return (
     <>
       <header className="nav-bar fixed inset-x-0 top-0 z-[120]">
         <div className="container flex items-center justify-between py-5 md:py-6">
           <a
             href="#hero"
+            onClick={(event) => onNavClick(event, "#hero")}
             className="nav-bar__brand font-display text-sm font-medium tracking-[0.28em] transition-opacity hover:opacity-70"
           >
             SM
@@ -91,6 +102,7 @@ export const NavBar = () => {
                 <a
                   key={item.name}
                   href={item.href}
+                  onClick={(event) => onNavClick(event, item.href)}
                   className="text-label text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {item.name}
@@ -157,7 +169,7 @@ export const NavBar = () => {
                   ref={(el) => {
                     linksRef.current[index] = el;
                   }}
-                  onClick={closeMenu}
+                  onClick={(event) => onNavClick(event, item.href)}
                   className="mobile-menu__link group"
                 >
                   <span className="mobile-menu__link-index">
