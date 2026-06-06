@@ -242,7 +242,7 @@ export const ExperienceSection = () => {
             </div>
 
             {experiences.map((exp, index) => {
-              const isLeft = index % 2 === 0;
+              const isLeft = index % 2 === 1;
 
               return (
                 <article
