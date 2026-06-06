@@ -140,39 +140,39 @@ export const ContactSection = () => {
     <section
       id="contact"
       ref={sectionRef}
-      className="contact-section section-surface-light relative scroll-mt-24"
+      className="contact-section section-surface-light relative scroll-mt-24 overflow-x-clip"
     >
       <div className="section-padding border-t border-border">
-        <div className="container">
-          <div className="contact-section__header mb-16 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:mb-20">
+        <div className="container min-w-0">
+          <div className="contact-section__header mb-12 flex flex-col gap-4 sm:mb-16 sm:flex-row sm:items-center sm:justify-between md:mb-20">
             <p className="text-label text-muted-foreground">06 — Contact</p>
             <p className="text-label text-muted-foreground/70">Open to collaborate</p>
           </div>
 
-          <div className="grid items-start gap-14 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-16 xl:gap-20">
-            <div className="lg:sticky lg:top-28">
-              <div ref={headlineRef} className="max-w-xl">
-                <h2 className="text-display-lg text-foreground">
+          <div className="grid min-w-0 items-start gap-10 sm:gap-12 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-16 xl:gap-20">
+            <div className="min-w-0 lg:sticky lg:top-28">
+              <div ref={headlineRef} className="max-w-xl min-w-0">
+                <h2 className="contact-headline text-display-lg text-foreground">
                   Let&apos;s build
                   <br />
                   <span className="text-muted-foreground">something together</span>
                 </h2>
-                <p className="mt-8 max-w-md leading-relaxed text-muted-foreground md:text-lg">
+                <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground sm:mt-8 md:text-lg">
                   Have a project in mind or interested in working together? Send a
                   message — I&apos;m always open to new opportunities and professional
                   engagements.
                 </p>
               </div>
 
-              <div ref={channelsRef} className="contact-channels mt-12">
+              <div ref={channelsRef} className="contact-channels mt-8 sm:mt-12">
                 {channels.map((channel) => (
                   <ContactChannel key={channel.id} {...channel} />
                 ))}
               </div>
             </div>
 
-            <div ref={formPanelRef}>
-              <BlueprintFrame className="contact-form-frame">
+            <div ref={formPanelRef} className="min-w-0">
+              <BlueprintFrame className="contact-form-frame min-w-0">
                 <div className="contact-form-frame__header">
                   <span className="text-label text-muted-foreground">Message</span>
                   <span className="text-label text-foreground/70">Direct inquiry</span>
