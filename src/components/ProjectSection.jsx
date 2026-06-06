@@ -47,7 +47,7 @@ const proj = [
       "A system that helps the Sangguniang Bayan Office organize and track municipal resolutions and orders.",
     image: "/projects/project-2.png",
     tags: ["HTML", "CSS", "Bootstrap", "PHP", "JavaScript", "MySQL"],
-    role: "Backend Development & Database Design",
+    role: "Full Stack Development",
     year: "2025",
     demoUrl: "#",
     githubUrl: "#",
