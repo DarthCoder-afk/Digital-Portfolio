@@ -10,10 +10,8 @@ import { SmoothScroll } from "../components/SmoothScroll";
 
 export const Home = () => {
   return (
-    <SmoothScroll>
+    <SmoothScroll fixed={<NavBar />}>
       <div className="relative min-h-screen overflow-x-hidden text-foreground">
-        <NavBar />
-
         <main className="relative z-10">
           <HeroSection />
           <AboutMe />

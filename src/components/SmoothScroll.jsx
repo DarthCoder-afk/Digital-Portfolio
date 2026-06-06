@@ -11,7 +11,7 @@ const backgroundLayers = (
   </>
 );
 
-export function SmoothScroll({ children }) {
+export function SmoothScroll({ children, fixed }) {
   const smootherRef = useRef(null);
   const reducedMotion = prefersReducedMotion();
 
@@ -36,6 +36,7 @@ export function SmoothScroll({ children }) {
     return (
       <>
         {backgroundLayers}
+        {fixed}
         {children}
       </>
     );
@@ -44,6 +45,7 @@ export function SmoothScroll({ children }) {
   return (
     <div id="smooth-wrapper">
       {backgroundLayers}
+      {fixed}
       <div id="smooth-content">{children}</div>
     </div>
   );

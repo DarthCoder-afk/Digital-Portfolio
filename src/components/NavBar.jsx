@@ -21,7 +21,6 @@ const socialLinks = [
 export const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const progressRef = useRef(null);
-  const overlayRef = useRef(null);
   const linksRef = useRef([]);
 
   useEffect(() => {
@@ -50,31 +49,38 @@ export const NavBar = () => {
   }, [isMenuOpen]);
 
   useEffect(() => {
-    if (!overlayRef.current) return;
-
-    if (isMenuOpen) {
-      gsap.fromTo(
-        overlayRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.4, ease: "power2.out" }
-      );
-      gsap.fromTo(
-        linksRef.current,
-        { y: 60, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: "power3.out", delay: 0.1 }
-      );
+    if (!isMenuOpen) {
+      linksRef.current.forEach((link) => {
+        if (link) gsap.set(link, { clearProps: "all" });
+      });
+      return;
     }
+
+    if (prefersReducedMotion()) return;
+
+    gsap.fromTo(
+      linksRef.current.filter(Boolean),
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.55,
+        stagger: 0.07,
+        ease: "power3.out",
+        delay: 0.1,
+      }
+    );
   }, [isMenuOpen]);
 
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50">
+      <header className="nav-bar fixed inset-x-0 top-0 z-[120]">
         <div className="container flex items-center justify-between py-5 md:py-6">
           <a
             href="#hero"
-            className="font-display text-sm font-medium tracking-[0.28em] text-foreground transition-opacity hover:opacity-70"
+            className="nav-bar__brand font-display text-sm font-medium tracking-[0.28em] transition-opacity hover:opacity-70"
           >
             SM
           </a>
@@ -114,60 +120,74 @@ export const NavBar = () => {
           <button
             type="button"
             onClick={() => setIsMenuOpen((prev) => !prev)}
-            className="relative z-[60] flex h-10 w-10 items-center justify-center text-foreground md:hidden"
+            className="nav-bar__toggle relative z-[130] flex h-10 w-10 items-center justify-center md:hidden"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
           >
-            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {isMenuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
           </button>
         </div>
 
-        <div className="h-px w-full bg-border">
-          <div
-            ref={progressRef}
-            className="scroll-progress h-full w-full bg-accent/80"
-          />
+        <div className="nav-bar__progress-track h-px w-full">
+          <div ref={progressRef} className="scroll-progress h-full w-full" />
         </div>
       </header>
 
       <div
-        ref={overlayRef}
         className={cn(
-          "fixed inset-0 z-[55] flex flex-col bg-background/98 backdrop-blur-xl md:hidden",
-          isMenuOpen ? "pointer-events-auto" : "pointer-events-none opacity-0"
+          "mobile-menu fixed inset-x-0 bottom-0 top-[4.75rem] z-[110] md:hidden",
+          isMenuOpen ? "mobile-menu--open pointer-events-auto" : "pointer-events-none"
         )}
         aria-hidden={!isMenuOpen}
       >
-        <div className="container flex flex-1 flex-col justify-center gap-2 py-24">
-          {navItems.map((item, index) => (
-            <a
-              key={item.name}
-              href={item.href}
-              ref={(el) => {
-                linksRef.current[index] = el;
-              }}
-              onClick={closeMenu}
-              className="menu-link text-foreground/90 transition-colors hover:text-accent"
-            >
-              {item.name}
-            </a>
-          ))}
+        <div className="mobile-menu__backdrop" aria-hidden="true" />
 
-          <div className="mt-12 flex gap-6">
-            {socialLinks.map((link) => {
-              const SocialIcon = link.icon;
-              return (
+        <div className="mobile-menu__panel">
+          <div className="container flex h-full flex-col">
+            <div className="mobile-menu__header flex items-center justify-between border-b border-[var(--nav-line)] py-5">
+              <span className="text-label text-muted-foreground">Navigation</span>
+              <span className="text-label text-muted-foreground/70">Menu</span>
+            </div>
+
+            <nav className="mobile-menu__links flex flex-1 flex-col justify-center gap-1 py-8">
+              {navItems.map((item, index) => (
                 <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={link.label}
-                  className="text-muted-foreground transition-colors hover:text-foreground"
+                  key={item.name}
+                  href={item.href}
+                  ref={(el) => {
+                    linksRef.current[index] = el;
+                  }}
+                  onClick={closeMenu}
+                  className="mobile-menu__link group"
                 >
-                  <SocialIcon size={22} strokeWidth={1.5} />
+                  <span className="mobile-menu__link-index">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="menu-link mobile-menu__link-label">{item.name}</span>
                 </a>
-              );
-            })}
+              ))}
+            </nav>
+
+            <div className="mobile-menu__footer border-t border-[var(--nav-line)] py-8">
+              <p className="text-label mb-5 text-muted-foreground">Connect</p>
+              <div className="flex gap-5">
+                {socialLinks.map((link) => {
+                  const SocialIcon = link.icon;
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.label}
+                      className="mobile-menu__social"
+                    >
+                      <SocialIcon size={20} strokeWidth={1.5} />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>

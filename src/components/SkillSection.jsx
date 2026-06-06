@@ -109,6 +109,7 @@ function buildLogoData(skillList) {
 
 export const SkillSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [isCompact, setIsCompact] = useState(false);
   const sectionRef = useRef(null);
   const headlineRef = useRef(null);
 
@@ -117,6 +118,15 @@ export const SkillSection = () => {
     (skill) => activeCategory === "all" || skill.category === activeCategory
   );
   const logoData = buildLogoData(filteredSkills);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 640px)");
+    const updateCompact = () => setIsCompact(mediaQuery.matches);
+
+    updateCompact();
+    mediaQuery.addEventListener("change", updateCompact);
+    return () => mediaQuery.removeEventListener("change", updateCompact);
+  }, []);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -143,26 +153,29 @@ export const SkillSection = () => {
   }, []);
 
   return (
-    <section id="skills" ref={sectionRef} className="section-surface-light skills-section relative scroll-mt-24">
+    <section
+      id="skills"
+      ref={sectionRef}
+      className="skills-section section-surface-light relative scroll-mt-24 overflow-x-clip"
+    >
       <div className="section-padding border-t border-border">
-        <div className="container">
-          <div className="skills-section__header mb-16 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:mb-20">
+        <div className="container min-w-0">
+          <div className="skills-section__header mb-12 flex flex-col gap-4 sm:mb-16 sm:flex-row sm:items-center sm:justify-between md:mb-20">
             <p className="text-label text-muted-foreground">04 — Skills</p>
             <p className="text-label text-muted-foreground/70">{skills.length} technologies</p>
           </div>
 
-          <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16 xl:gap-20">
-            {/* Left — category context */}
-            <div className="lg:sticky lg:top-28">
-              <div ref={headlineRef} className="mb-10 max-w-xl">
-                <h2 className="text-display-lg text-foreground">
+          <div className="grid min-w-0 items-start gap-10 sm:gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16 xl:gap-20">
+            <div className="min-w-0 lg:sticky lg:top-28">
+              <div ref={headlineRef} className="mb-8 max-w-xl sm:mb-10">
+                <h2 className="skills-headline text-display-lg text-foreground">
                   Tools &amp; technologies
                   <br />
                   <span className="text-muted-foreground">I build with</span>
                 </h2>
               </div>
 
-              <div className="skills-tabs mb-8 flex flex-wrap gap-2">
+              <div className="skills-tabs mb-6 flex flex-wrap gap-2 sm:mb-8">
                 {categories.map((cat) => {
                   const isActive = activeCategory === cat.id;
                   return (
@@ -191,15 +204,14 @@ export const SkillSection = () => {
                   <p className="text-label mb-4 text-muted-foreground">
                     {activeMeta.index} — {activeMeta.title}
                   </p>
-                  <p className="font-display text-lg leading-relaxed text-foreground/85 md:text-xl">
+                  <p className="font-display text-base leading-relaxed text-foreground/85 sm:text-lg md:text-xl">
                     {activeMeta.description}
                   </p>
                 </MotionDiv>
               </AnimatePresence>
             </div>
 
-            {/* Right — LogoLoop as the sole skill display */}
-            <BlueprintFrame className="skills-loop-frame">
+            <BlueprintFrame className="skills-loop-frame min-w-0">
               <div className="skills-loop-frame__header">
                 <span className="text-label text-muted-foreground">Active stack</span>
                 <span className="text-label text-foreground/80">
@@ -219,10 +231,10 @@ export const SkillSection = () => {
                   <div className="skills-loop-track">
                     <LogoLoop
                       logos={logoData}
-                      speed={65}
+                      speed={isCompact ? 50 : 65}
                       direction="left"
-                      logoHeight={30}
-                      gap={36}
+                      logoHeight={isCompact ? 24 : 30}
+                      gap={isCompact ? 24 : 36}
                       fadeOut
                       fadeOutColor="#f5f5f4"
                       scaleOnHover
@@ -232,10 +244,10 @@ export const SkillSection = () => {
                   <div className="skills-loop-track skills-loop-track--reverse">
                     <LogoLoop
                       logos={logoData}
-                      speed={50}
+                      speed={isCompact ? 40 : 50}
                       direction="right"
-                      logoHeight={26}
-                      gap={32}
+                      logoHeight={isCompact ? 22 : 26}
+                      gap={isCompact ? 20 : 32}
                       fadeOut
                       fadeOutColor="#f5f5f4"
                       scaleOnHover
