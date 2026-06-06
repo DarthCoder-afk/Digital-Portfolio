@@ -10,7 +10,7 @@ const bioLines = [
 
 const highlights = [
   { label: "Focus", value: "Full-Stack Development" },
-  { label: "Stack", value: "Next.js · NestJS · PostgreSQL" },
+  { label: "Stack", value: "Next.js · NestJS · Express · PostgreSQL · MongoDB" },
   { label: "Status", value: "Open to work" },
 ];
 
