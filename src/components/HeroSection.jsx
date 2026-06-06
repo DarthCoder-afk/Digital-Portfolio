@@ -74,16 +74,16 @@ export const HeroSection = () => {
     <section
       id="hero"
       ref={sectionRef}
-      className="section-surface-dark relative flex min-h-screen flex-col justify-center py-28 md:py-32 lg:py-36"
+      className="section-surface-dark relative flex min-h-0 flex-col justify-center overflow-x-clip py-20 pt-24 sm:py-24 sm:pt-28 md:min-h-screen md:py-32 lg:py-36"
     >
-      <div className="container relative">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20">
-          <div className="order-2 max-w-5xl lg:order-1">
-            <p className="text-label mb-6 text-muted-foreground">Software Engineer</p>
+      <div className="container relative min-w-0">
+        <div className="grid min-w-0 items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+          <div className="order-2 min-w-0 max-w-5xl lg:order-1">
+            <p className="text-label mb-4 text-muted-foreground sm:mb-6">Software Engineer</p>
 
             <h1
               ref={headlineRef}
-              className="text-display-xl mb-8 text-foreground"
+              className="hero-headline text-display-xl mb-6 text-foreground sm:mb-8"
             >
               Sean Michael
               <br />
@@ -92,18 +92,24 @@ export const HeroSection = () => {
 
             <p
               ref={sublineRef}
-              className="mb-10 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg"
+              className="mb-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:mb-10 md:text-lg"
             >
               I&apos;m a passionate software engineer who loves turning ideas into
               interactive experiences. From front-end design to back-end logic, I
               build tools that make a difference.
             </p>
 
-            <div className="flex flex-wrap gap-4">
-              <a href="#projects" className="hero-cta cinematic-button-primary">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+              <a
+                href="#projects"
+                className="hero-cta cinematic-button-primary w-full justify-center sm:w-auto"
+              >
                 Explore Projects
               </a>
-              <a href="#contact" className="hero-cta cinematic-button-secondary">
+              <a
+                href="#contact"
+                className="hero-cta cinematic-button-secondary w-full justify-center sm:w-auto"
+              >
                 Connect With Me
               </a>
             </div>
@@ -111,7 +117,7 @@ export const HeroSection = () => {
 
           <div
             ref={cardRef}
-            className="hero-profile-card order-1 mx-auto w-full max-w-[340px] lg:order-2 lg:mx-0 lg:justify-self-end"
+            className="hero-profile-card order-1 mx-auto w-full min-w-0 max-w-[min(100%,340px)] lg:order-2 lg:mx-0 lg:justify-self-end"
           >
             <ProfileCard
               name="Sean Borje"
@@ -135,7 +141,7 @@ export const HeroSection = () => {
 
       <div
         ref={scrollCueRef}
-        className="container mt-16 flex items-center gap-3 text-muted-foreground"
+        className="container mt-10 flex min-w-0 items-center gap-3 text-muted-foreground sm:mt-16"
       >
         <ArrowDown size={16} strokeWidth={1.5} />
         <span className="text-label">Scroll to explore</span>
