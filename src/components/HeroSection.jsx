@@ -119,7 +119,7 @@ export const HeroSection = () => {
 
           <div
             ref={cardRef}
-            className="hero-profile-card order-1 mx-auto w-full min-w-0 max-w-[min(100%,340px)] lg:order-2 lg:mx-0 lg:justify-self-end"
+            className="order-1 mx-auto w-full min-w-0 max-w-[min(100%,340px)] lg:order-2 lg:mx-0 lg:justify-self-end"
           >
             <ProfileCard
               name="Sean Borje"
@@ -133,7 +133,7 @@ export const HeroSection = () => {
               enableMobileTilt={false}
               onContactClick={handleContactClick}
               behindGlowColor="rgba(125, 190, 255, 0.67)"
-              iconUrl="/card/pattern.png"
+              iconUrl="/assets/demo/iconpattern.png"
               behindGlowEnabled
               innerGradient="linear-gradient(145deg, rgba(18, 18, 18, 0.95) 0%, rgba(40, 40, 40, 0.55) 100%)"
             />
