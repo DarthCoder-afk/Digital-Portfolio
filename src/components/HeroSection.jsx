@@ -130,7 +130,7 @@ export const HeroSection = () => {
               avatarUrl="/profile/formal.png"
               showUserInfo={false}
               enableTilt={true}
-              enableMobileTilt={true}
+              enableMobileTilt={false}
               onContactClick={handleContactClick}
               behindGlowColor="rgba(125, 190, 255, 0.67)"
               iconUrl="/card/pattern.png"
