@@ -119,7 +119,7 @@ export const HeroSection = () => {
 
           <div
             ref={cardRef}
-            className="order-1 mx-auto w-full min-w-0 max-w-[min(100%,340px)] lg:order-2 lg:mx-0 lg:justify-self-end"
+            className="hero-profile-card order-1 mx-auto w-full min-w-0 max-w-[min(100%,340px)] lg:order-2 lg:mx-0 lg:justify-self-end"
           >
             <ProfileCard
               name="Sean Borje"
