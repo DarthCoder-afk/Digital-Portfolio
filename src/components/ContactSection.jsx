@@ -1,12 +1,53 @@
-import { Mail, MapPin, Facebook, SendIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Facebook, Mail, MapPin, SendIcon } from "lucide-react";
 import emailjs from "@emailjs/browser";
-import { useRef, useState } from "react";
+import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import { useToast } from "@/hooks/use-toast";
-import { FadeReveal, Reveal } from "@/components/Reveal";
+
+const channels = [
+  {
+    id: "01",
+    label: "Facebook",
+    value: "Sean Michael Borje",
+    href: "https://www.facebook.com/seanmichael.borje.7/",
+    icon: Facebook,
+  },
+  {
+    id: "02",
+    label: "Email",
+    value: "seanmichaelborje179@gmail.com",
+    href: "mailto:seanmichaelborje179@gmail.com",
+    icon: Mail,
+  },
+  {
+    id: "03",
+    label: "Location",
+    value: "Manila, Philippines",
+    icon: MapPin,
+  },
+];
+
+function BlueprintFrame({ children, className = "" }) {
+  return (
+    <div className={`about-frame ${className}`.trim()}>
+      <span className="about-frame__corner about-frame__corner--tl" aria-hidden="true" />
+      <span className="about-frame__corner about-frame__corner--tr" aria-hidden="true" />
+      <span className="about-frame__corner about-frame__corner--bl" aria-hidden="true" />
+      <span className="about-frame__corner about-frame__corner--br" aria-hidden="true" />
+      <span className="about-frame__guide about-frame__guide--top" aria-hidden="true" />
+      <span className="about-frame__guide about-frame__guide--left" aria-hidden="true" />
+      {children}
+    </div>
+  );
+}
 
 export const ContactSection = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const sectionRef = useRef(null);
+  const headlineRef = useRef(null);
+  const channelsRef = useRef(null);
+  const formPanelRef = useRef(null);
   const form = useRef(null);
 
   const sendEmail = (e) => {
@@ -37,136 +78,184 @@ export const ContactSection = () => {
       });
   };
 
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        headlineRef.current,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        channelsRef.current,
+        { y: 36, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          delay: 0.1,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        formPanelRef.current,
+        { y: 48, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.1,
+          ease: "power3.out",
+          delay: 0.15,
+          scrollTrigger: {
+            trigger: formPanelRef.current,
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="contact" className="section-surface-light section-padding relative scroll-mt-24">
-      <div className="container">
-        <Reveal split="lines" className="mb-16 md:mb-24">
-          <p className="text-label mb-4 text-muted-foreground">Contact</p>
-          <h2 className="text-display-lg max-w-4xl text-foreground">
-            Let&apos;s build
-            <br />
-            something together
-          </h2>
-        </Reveal>
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="contact-section section-surface-light relative scroll-mt-24"
+    >
+      <div className="section-padding border-t border-border">
+        <div className="container">
+          <div className="contact-section__header mb-16 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:mb-20">
+            <p className="text-label text-muted-foreground">06 — Contact</p>
+            <p className="text-label text-muted-foreground/70">Open to collaborate</p>
+          </div>
 
-        <p className="mb-16 max-w-2xl text-muted-foreground md:mb-20">
-          If you have a project in mind or are interested in collaboration, please
-          don&apos;t hesitate to get in touch. I am always open to exploring new
-          opportunities and professional engagements.
-        </p>
+          <div className="grid items-start gap-14 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-16 xl:gap-20">
+            <div className="lg:sticky lg:top-28">
+              <div ref={headlineRef} className="max-w-xl">
+                <h2 className="text-display-lg text-foreground">
+                  Let&apos;s build
+                  <br />
+                  <span className="text-muted-foreground">something together</span>
+                </h2>
+                <p className="mt-8 max-w-md leading-relaxed text-muted-foreground md:text-lg">
+                  Have a project in mind or interested in working together? Send a
+                  message — I&apos;m always open to new opportunities and professional
+                  engagements.
+                </p>
+              </div>
 
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20">
-          <FadeReveal className="space-y-10">
-            <div>
-              <h3 className="font-display mb-8 text-2xl font-medium text-foreground">
-                Contact Information
-              </h3>
-
-              <div className="space-y-8">
-                <ContactRow
-                  icon={Facebook}
-                  href="https://www.facebook.com/seanmichael.borje.7/"
-                  label="Sean Michael Borje"
-                />
-                <ContactRow
-                  icon={Mail}
-                  href="mailto:seanmichaelborje179@gmail.com"
-                  label="seanmichaelborje179@gmail.com"
-                />
-                <ContactRow icon={MapPin} label="Manila, Philippines" />
+              <div ref={channelsRef} className="contact-channels mt-12">
+                {channels.map((channel) => (
+                  <ContactChannel key={channel.id} {...channel} />
+                ))}
               </div>
             </div>
-          </FadeReveal>
 
-          <FadeReveal delay={0.15}>
-            <div className="rounded-2xl hairline-border bg-card/50 p-8 backdrop-blur-sm md:p-10">
-              <h3 className="font-display mb-8 text-2xl font-medium text-foreground">
-                Send a Message
-              </h3>
+            <div ref={formPanelRef}>
+              <BlueprintFrame className="contact-form-frame">
+                <div className="contact-form-frame__header">
+                  <span className="text-label text-muted-foreground">Message</span>
+                  <span className="text-label text-foreground/70">Direct inquiry</span>
+                </div>
 
-              <form ref={form} onSubmit={sendEmail} className="space-y-6">
-                <FloatingInput id="name" name="name" label="Full Name" />
-                <FloatingInput id="email" name="email" type="email" label="Email" />
-                <FloatingInput id="subject" name="subject" label="Subject" />
-                <FloatingTextarea id="message" name="message" label="Message" />
+                <form ref={form} onSubmit={sendEmail} className="contact-form">
+                  <ContactField id="name" name="name" label="Full Name" />
+                  <ContactField id="email" name="email" type="email" label="Email Address" />
+                  <ContactField id="subject" name="subject" label="Subject" />
+                  <ContactField id="message" name="message" label="Message" multiline rows={5} />
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="cinematic-button-primary w-full disabled:opacity-60"
-                >
-                  <SendIcon size={16} />
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </button>
-              </form>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="cinematic-button-primary w-full disabled:opacity-60"
+                  >
+                    <SendIcon size={16} />
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </button>
+                </form>
+              </BlueprintFrame>
             </div>
-          </FadeReveal>
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
-function ContactRow({ icon, href, label }) {
-  const IconComponent = icon;
+function ContactChannel({ id, label, value, href, icon: Icon }) {
   const content = (
-    <div className="flex items-center gap-4">
-      <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background/50">
-        <IconComponent className="h-5 w-5 text-accent" />
+    <>
+      <div className="contact-channel__meta">
+        <span className="contact-channel__index">{id}</span>
+        <span className="text-label text-muted-foreground">{label}</span>
       </div>
-      <span className="text-muted-foreground transition-colors group-hover:text-foreground">
-        {label}
-      </span>
-    </div>
+      <div className="contact-channel__body">
+        <div className="contact-channel__icon" aria-hidden="true">
+          <Icon size={18} strokeWidth={1.5} />
+        </div>
+        <p className="contact-channel__value">{value}</p>
+        {href && (
+          <span className="contact-channel__arrow" aria-hidden="true">
+            <ArrowUpRight size={16} />
+          </span>
+        )}
+      </div>
+    </>
   );
 
   if (href) {
     return (
-      <a href={href} className="group block" target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined}>
+      <a
+        href={href}
+        className="contact-channel group"
+        target={href.startsWith("http") ? "_blank" : undefined}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+      >
         {content}
       </a>
     );
   }
 
-  return content;
+  return <div className="contact-channel">{content}</div>;
 }
 
-function FloatingInput({ id, name, label, type = "text" }) {
-  return (
-    <div className="relative">
-      <input
-        type={type}
-        id={id}
-        name={name}
-        required
-        className="peer w-full rounded-xl border border-border bg-background/50 px-4 pb-3 pt-6 text-foreground placeholder-transparent focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/30"
-        placeholder=" "
-      />
-      <label
-        htmlFor={id}
-        className="absolute left-4 top-4 text-sm text-muted-foreground transition-all duration-200 peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-accent peer-[&:not(:placeholder-shown)]:top-2 peer-[&:not(:placeholder-shown)]:text-xs"
-      >
-        {label}
-      </label>
-    </div>
-  );
-}
+function ContactField({ id, name, label, type = "text", multiline = false, rows = 4 }) {
+  const sharedProps = {
+    id,
+    name,
+    required: true,
+    className: "contact-field__input peer",
+    placeholder: " ",
+  };
 
-function FloatingTextarea({ id, name, label }) {
   return (
-    <div className="relative">
-      <textarea
-        id={id}
-        name={name}
-        required
-        rows={5}
-        className="peer w-full resize-none rounded-xl border border-border bg-background/50 px-4 pb-3 pt-6 text-foreground placeholder-transparent focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/30"
-        placeholder=" "
-      />
-      <label
-        htmlFor={id}
-        className="absolute left-4 top-4 text-sm text-muted-foreground transition-all duration-200 peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-accent peer-[&:not(:placeholder-shown)]:top-2 peer-[&:not(:placeholder-shown)]:text-xs"
-      >
+    <div className="contact-field">
+      {multiline ? (
+        <textarea {...sharedProps} rows={rows} />
+      ) : (
+        <input type={type} {...sharedProps} />
+      )}
+      <label htmlFor={id} className="contact-field__label">
         {label}
       </label>
     </div>
