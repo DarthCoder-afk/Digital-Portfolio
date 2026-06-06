@@ -1,48 +1,29 @@
-import { AboutMe } from "../components/AboutMe"
-import { ContactSection } from "../components/ContactSection"
-import { Footer } from "../components/Footer"
-import { HeroSection } from "../components/HeroSection"
-import { NavBar } from "../components/NavBar"
-import Particles from "../components/Particles"
-import { ProjectSection } from "../components/ProjectSection"
-import { SkillSection } from "../components/SkillSection"
-import { ThemeToggle } from "../components/ThemeToggle"
-
+import { AboutMe } from "../components/AboutMe";
+import { ContactSection } from "../components/ContactSection";
+import { ExperienceSection } from "../components/ExperienceSection";
+import { Footer } from "../components/Footer";
+import { HeroSection } from "../components/HeroSection";
+import { NavBar } from "../components/NavBar";
+import { ProjectSection } from "../components/ProjectSection";
+import { SkillSection } from "../components/SkillSection";
+import { SmoothScroll } from "../components/SmoothScroll";
 
 export const Home = () => {
-    return (
-        <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-           {/* Theme Toggle */}
-           {/* <ThemeToggle /> */}
+  return (
+    <SmoothScroll>
+      <div className="relative min-h-screen overflow-x-hidden text-foreground">
+        <NavBar />
 
-            {/* NavBar */}
-           <NavBar/>
-
-           {/* Background Effects */}
-           <div className="fixed inset-0 w-full h-full min-h-full z-0 pointer-events-none">
-                <Particles
-                    dotSize={1.6}
-                    gap={22}
-                    baseColor="#c8ced4ff"
-                    activeColor="#212529"
-                    proximity={100}
-                    shockRadius={250}
-                    shockStrength={5}
-                    resistance={750}
-                    returnDuration={1.5}
-                />
-            </div>
-          
-           {/* Main Content */}
-           <main className="relative z-10 ">
-                <HeroSection/>
-                <AboutMe/>
-                <SkillSection/>
-                <ProjectSection/>
-                <ContactSection/>
-                <Footer/>
-           </main>
-           {/* Footer */}
-        </div>
-    )
-}
+        <main className="relative z-10">
+          <HeroSection />
+          <AboutMe />
+          <ExperienceSection />
+          <SkillSection />
+          <ProjectSection />
+          <ContactSection />
+          <Footer />
+        </main>
+      </div>
+    </SmoothScroll>
+  );
+};

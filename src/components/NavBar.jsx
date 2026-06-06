@@ -1,162 +1,176 @@
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { X, Menu, Github, Linkedin, Facebook } from "lucide-react";
-import { useEffect, useState } from "react";
-import {motion} from "framer-motion"
-import { fadeIn } from "../variants";
-const navItems = [
-    { name: "Home", href: "#hero" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" }
-]
+import { Github, Linkedin, Facebook, Menu, X } from "lucide-react";
+import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 
+const navItems = [
+  { name: "Home", href: "#hero" },
+  { name: "About", href: "#about" },
+  { name: "Experience", href: "#experience" },
+  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
+  { name: "Contact", href: "#contact" },
+];
+
+const socialLinks = [
+  { href: "https://github.com/DarthCoder-afk", icon: Github, label: "GitHub" },
+  { href: "https://www.linkedin.com/in/seanmichaelarriolaborje", icon: Linkedin, label: "LinkedIn" },
+  { href: "https://www.facebook.com/seanmichael.borje.7/", icon: Facebook, label: "Facebook" },
+];
 
 export const NavBar = () => {
-    const[Scrolled, setScrolled] = useState(false);
-    const[isMenuOpen, setIsMenuOpen] = useState(false);  
-    const [activeLink, setActiveLink] = useState("#hero");
-    const [hoverPosition, setHoverPosition] = useState({
-    left: 0,
-    width: 0,
-    opacity: 0,
-    });    
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const progressRef = useRef(null);
+  const overlayRef = useRef(null);
+  const linksRef = useRef([]);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 10);
-        };
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        start: 0,
+        end: "max",
+        onUpdate: (self) => {
+          if (progressRef.current) {
+            progressRef.current.style.transform = `scaleX(${self.progress})`;
+          }
+        },
+      });
+    });
 
-    useEffect(() => {
-        if (isMenuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    }, [isMenuOpen]);
+    return () => ctx.revert();
+  }, []);
 
-    return <nav className={cn("fixed w-full z-40 font-semibold transition-all duration-200",
-        Scrolled ? "py-3 bg-[#f8fafc] shadow-lg md:bg-transparent md:shadow-none" : "py-5 bg-transparent",
-    )}>
-        <div className="container mx-auto flex items-center justify-between px-4">
-             {/* Desktop View */}
-            <motion.div 
-                variants={fadeIn('down', 0.2)}
-                initial="hidden"
-                whileInView={"show"}
-                viewport={{ once: true, amount: 0.3}}
-                className="hidden md:flex w-full justify-center mt-1 relative">
-                <div className={cn(
-                        "w-full max-w-5xl rounded-full flex items-center justify-between relative transition-all duration-300 ease-in-out",
-                        Scrolled
-                        ? "backdrop-blur bg-[#f8fafc]/80 border border-[#ced4da] shadow-lg px-4 py-4"
-                        : "bg-transparent  py-4 pl-0 pr-0"
-                    )}>
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
 
-                    {/* Left: Name */}
-                    <a href="#hero" className={cn(
-                            "text-xl font-bold text-primary transition-all duration-200",
-                            Scrolled ? "ml-0" : "ml-[-12px]"
-                        )}>
-                        <span className="text-foreground">SEAN</span>
-                    </a>
+  useEffect(() => {
+    if (!overlayRef.current) return;
 
-                    {/* Center: Navigation */}
-                    <ul 
-                    onMouseLeave={() => {
-                    setHoverPosition((pv) => ({ ...pv, opacity: 0 }));
-                    }}
-                    className={cn(
-                        "relative flex space-x-1 transition-all duration-200",
-                        Scrolled ? "mx-8" : "mx-0"
-                    )}>
-                        {navItems.map((item, key) => (
-                            <li
-                            key={key}
-                            className="relative z-10 cursor-pointer text-sm font-medium text-gray-800 hover:text-secondary transition-colors px-4 py-2"
-                            onMouseEnter={(e) => {
-                                const target = e.currentTarget;
-                                const { width } = target.getBoundingClientRect();
-                                setHoverPosition({
-                                    left: target.offsetLeft - 4, // optional: shift left a bit
-                                    width: width + 8,           // make it wider than the item
-                                    opacity: 1,
-                                });
-                            }}
-                            >
-                            <a href={item.href}> 
-                                {item.name}</a>
-                            </li>
-                        ))}
-                         <motion.div
-                            layout
-                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                            animate={{
-                                left: hoverPosition.left,
-                                width: hoverPosition.width,
-                                opacity: hoverPosition.opacity,
-                            }}
-                            className="absolute top-1/2 -translate-y-1/2 h-10 px-4 rounded-full bg-primary -z-0"
-                        />
-                    </ul>
+    if (isMenuOpen) {
+      gsap.fromTo(
+        overlayRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4, ease: "power2.out" }
+      );
+      gsap.fromTo(
+        linksRef.current,
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: "power3.out", delay: 0.1 }
+      );
+    }
+  }, [isMenuOpen]);
 
-                    {/* Right: Social Icons */}
-                    <div className={cn(
-                        "flex space-x-4 transition-all duration-200",
-                        Scrolled ? "mr-0" : "mr-[-24px]"
-                    )}>
-                        <a href="https://github.com/DarthCoder-afk" target="_blank" rel="noopener noreferrer">
-                            <Github className="text-foreground/70 hover:fill-[#212529] transition" size={18} />
-                        </a>
-                        <a href="https://www.linkedin.com/in/seanmichaelarriolaborje" target="_blank" rel="noopener noreferrer">
-                            <Linkedin className="text-foreground/70 hover:fill-[#212529] transition" size={18} />
-                        </a>
-                        <a href="https://www.facebook.com/seanmichael.borje.7/" target="_blank" rel="noopener noreferrer">
-                            <Facebook className="text-foreground/70 hover:fill-[#212529] transition" size={18} />
-                        </a>
-                    </div>
+  const closeMenu = () => setIsMenuOpen(false);
 
-                </div>
-            </motion.div>
+  return (
+    <>
+      <header className="fixed inset-x-0 top-0 z-50">
+        <div className="container flex items-center justify-between py-5 md:py-6">
+          <a
+            href="#hero"
+            className="font-display text-sm font-medium tracking-[0.28em] text-foreground transition-opacity hover:opacity-70"
+          >
+            SM
+          </a>
 
+          <div className="hidden items-center gap-8 md:flex">
+            <nav className="flex items-center gap-6">
+              {navItems.slice(1).map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-label text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </nav>
 
-            {/* Mobile View */}
-
-            <button onClick={()=> setIsMenuOpen((prev) => !prev)} 
-            className="md:hidden text-foreground z-50 align-right"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}>
-                {isMenuOpen? <X size={24} /> : <Menu size={24} />}</button>
-
-            <div className={cn("fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center",
-                "transition-all duration-300 md:hidden",
-                isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-
-                
-            )}>
-                <div className="flex flex-col space-y-8 text-xl">
-                    {navItems.map((item, key) => (
-                        <a key={key} href={item.href} className="text-foreground/80 hover:text-primary transition-colors duration-200 " onClick={() => setIsMenuOpen(false)}>
-                            {item.name}</a>
-                    ))}
-
-                    {/* Mobile Social Icons */}
-                    <div className="flex space-x-4 pt-8">
-                        <a href="https://github.com/DarthCoder-afk" target="_blank" rel="noopener noreferrer">
-                        <Github className="text-foreground/70 hover:text-primary transition" size={24} />
-                        </a>
-                        <a href="https://www.linkedin.com/in/seanmichaelarriolaborje" target="_blank" rel="noopener noreferrer">
-                        <Linkedin className="text-foreground/70 hover:text-primary transition" size={24} />
-                        </a>
-                        <a href="https://www.facebook.com/seanmichael.borje.7/" target="_blank" rel="noopener noreferrer">
-                        <Facebook className="text-foreground/70 hover:text-primary transition" size={24} />
-                        </a>
-                    </div>
-                </div>
+            <div className="flex items-center gap-4">
+              {socialLinks.map((link) => {
+                const SocialIcon = link.icon;
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.label}
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    <SocialIcon size={16} strokeWidth={1.5} />
+                  </a>
+                );
+              })}
             </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            className="relative z-[60] flex h-10 w-10 items-center justify-center text-foreground md:hidden"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
-    </nav>
-}
+
+        <div className="h-px w-full bg-border">
+          <div
+            ref={progressRef}
+            className="scroll-progress h-full w-full bg-accent/80"
+          />
+        </div>
+      </header>
+
+      <div
+        ref={overlayRef}
+        className={cn(
+          "fixed inset-0 z-[55] flex flex-col bg-background/98 backdrop-blur-xl md:hidden",
+          isMenuOpen ? "pointer-events-auto" : "pointer-events-none opacity-0"
+        )}
+        aria-hidden={!isMenuOpen}
+      >
+        <div className="container flex flex-1 flex-col justify-center gap-2 py-24">
+          {navItems.map((item, index) => (
+            <a
+              key={item.name}
+              href={item.href}
+              ref={(el) => {
+                linksRef.current[index] = el;
+              }}
+              onClick={closeMenu}
+              className="menu-link text-foreground/90 transition-colors hover:text-accent"
+            >
+              {item.name}
+            </a>
+          ))}
+
+          <div className="mt-12 flex gap-6">
+            {socialLinks.map((link) => {
+              const SocialIcon = link.icon;
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.label}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <SocialIcon size={22} strokeWidth={1.5} />
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
