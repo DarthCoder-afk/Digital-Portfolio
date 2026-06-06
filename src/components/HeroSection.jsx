@@ -79,7 +79,7 @@ export const HeroSection = () => {
       <div className="container relative">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <div className="order-2 max-w-5xl lg:order-1">
-            <p className="text-label mb-6 text-muted-foreground">Software Developer</p>
+            <p className="text-label mb-6 text-muted-foreground">Software Engineer</p>
 
             <h1
               ref={headlineRef}
@@ -94,7 +94,7 @@ export const HeroSection = () => {
               ref={sublineRef}
               className="mb-10 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg"
             >
-              I&apos;m a passionate software developer who loves turning ideas into
+              I&apos;m a passionate software engineer who loves turning ideas into
               interactive experiences. From front-end design to back-end logic, I
               build tools that make a difference.
             </p>
