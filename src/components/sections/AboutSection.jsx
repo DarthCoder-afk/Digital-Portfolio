@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+import { BlueprintFrame } from "@/components/ui/BlueprintFrame";
 
 const bioLines = [
   "Hi :) I'm Sean, a Software Engineer passionate about building scalable and user-focused applications.",
@@ -14,21 +15,7 @@ const highlights = [
   { label: "Status", value: "Open to work" },
 ];
 
-function BlueprintFrame({ children, className = "" }) {
-  return (
-    <div className={`about-frame ${className}`.trim()}>
-      <span className="about-frame__corner about-frame__corner--tl" aria-hidden="true" />
-      <span className="about-frame__corner about-frame__corner--tr" aria-hidden="true" />
-      <span className="about-frame__corner about-frame__corner--bl" aria-hidden="true" />
-      <span className="about-frame__corner about-frame__corner--br" aria-hidden="true" />
-      <span className="about-frame__guide about-frame__guide--top" aria-hidden="true" />
-      <span className="about-frame__guide about-frame__guide--left" aria-hidden="true" />
-      {children}
-    </div>
-  );
-}
-
-export const AboutMe = () => {
+export const AboutSection = () => {
   const sectionRef = useRef(null);
   const headlineRef = useRef(null);
   const textRef = useRef(null);

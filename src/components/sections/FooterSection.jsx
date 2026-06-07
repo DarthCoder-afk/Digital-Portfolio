@@ -1,4 +1,4 @@
-export const Footer = () => {
+export const FooterSection = () => {
   return (
     <footer className="section-surface-dark relative border-t border-border">
       <div className="container flex flex-col items-start justify-between gap-6 py-10 text-sm text-muted-foreground md:flex-row md:items-center">
