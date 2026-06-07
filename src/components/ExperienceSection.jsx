@@ -8,7 +8,7 @@ const experiences = [
     company: "White Cloak Technologies, Inc.",
     type: "Full-time",
     period: "Dec 2025 — Present",
-    location: null,
+    location: "Pasig City, Metro Manila, Philippines · Hybrid",
     projects: [
       {
         title: "AI Hiring Platform",
@@ -45,7 +45,7 @@ const experiences = [
   {
     id: "freelance",
     role: "Freelance Developer",
-    company: "Freelance",
+    company: "Self-Employed",
     type: "Freelance",
     period: "Mar 2024 — Jul 2025",
     location: "Daet, Bicol Region, Philippines · Remote",
@@ -258,7 +258,7 @@ export const ExperienceSection = () => {
                   </div>
 
                   <div className="experience-timeline__center">
-                    <span className="experience-timeline__node" aria-hidden="true">
+                    <span className="experience-timeline__node bg-transparent" aria-hidden="true">
                       <span className="experience-timeline__node-inner" />
                     </span>
                   </div>

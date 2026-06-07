@@ -1049,20 +1049,8 @@
 .experience-project {
   position: relative;
   padding-left: 1rem;
-  border-left: 1px solid var(--surface-line-subtle);
 }
 
-.experience-project::before {
-  content: "+";
-  position: absolute;
-  left: -0.45rem;
-  top: 0.1rem;
-  font-size: 0.65rem;
-  color: var(--surface-plus);
-  font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
-  background: var(--surface-node);
-  line-height: 1;
-}
 
 .experience-project__header {
   margin-bottom: 1rem;
@@ -1559,3 +1547,4 @@ textarea.contact-field__input {
     transform: none !important;
   }
 }
+ 
