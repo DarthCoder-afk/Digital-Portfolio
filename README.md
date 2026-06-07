@@ -77,21 +77,51 @@ npm run lint
 ## Project Structure
 
 ```text
-src/
-├── components/       # UI sections and shared components
-│   ├── HeroSection.jsx
-│   ├── AboutMe.jsx
-│   ├── ExperienceSection.jsx
-│   ├── SkillSection.jsx
-│   ├── ProjectSection.jsx
-│   ├── ContactSection.jsx
-│   ├── NavBar.jsx
-│   ├── SmoothScroll.jsx
-│   └── ...
-├── hooks/            # Reveal and UI hooks
-├── lib/              # GSAP setup, scroll helpers, utilities
-├── pages/            # Home and NotFound routes
-└── index.css         # Theme tokens, section surfaces, blueprint styles
+├── public/                    # Static assets (profile image, card pattern, logo)
+├── src/
+│   ├── App.jsx                # Router + global Toaster
+│   ├── main.jsx               # App entry point
+│   ├── components/
+│   │   ├── sections/          # Page sections (composed in Home)
+│   │   │   ├── HeroSection.jsx
+│   │   │   ├── AboutSection.jsx
+│   │   │   ├── ExperienceSection.jsx
+│   │   │   ├── SkillSection.jsx
+│   │   │   ├── ProjectSection.jsx
+│   │   │   ├── ContactSection.jsx
+│   │   │   └── FooterSection.jsx
+│   │   ├── effects/           # Motion and ambient visuals
+│   │   │   ├── SmoothScroll.jsx
+│   │   │   ├── BlueprintGrid.jsx
+│   │   │   ├── LogoLoop.jsx
+│   │   │   ├── Reveal.jsx
+│   │   │   └── TextType.jsx
+│   │   ├── layout/            # App shell
+│   │   │   └── NavBar.jsx
+│   │   └── ui/                # Reusable UI pieces
+│   │       ├── BlueprintFrame.jsx
+│   │       ├── ProfileCard.jsx
+│   │       ├── ToastComponent.jsx
+│   │       └── ToasterComponent.jsx
+│   ├── data/                  # Portfolio content (edit here to update site copy)
+│   │   ├── experience.js      # Work history + project highlights
+│   │   ├── skills.js          # Skill list + category tabs
+│   │   └── projects.js        # Featured project cards
+│   ├── hooks/
+│   │   ├── use-toast.js
+│   │   └── useReveal.js
+│   ├── lib/
+│   │   ├── gsap.js            # GSAP plugin registration + reduced-motion helper
+│   │   ├── scrollToSection.js # ScrollSmoother-aware section scrolling
+│   │   └── utils.js           # cn() and shared utilities
+│   ├── pages/
+│   │   └── Home.jsx           # Main portfolio page
+│   └── styles/
+│       ├── index.css          # Theme tokens, section surfaces, blueprint styles
+│       └── ProfileCard.css    # ProfileCard component styles
+├── index.html
+├── vite.config.js             # Vite + Tailwind + @ path alias
+└── package.json
 ```
 
 ## Sections

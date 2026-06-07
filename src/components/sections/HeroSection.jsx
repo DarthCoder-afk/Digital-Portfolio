@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { ArrowDown } from "lucide-react";
 import { gsap, SplitText, prefersReducedMotion } from "@/lib/gsap";
 import { scrollToSection } from "@/lib/scrollToSection";
-import ProfileCard from "./ProfileCard";
+import ProfileCard from "@/components/ui/ProfileCard";
 
 export const HeroSection = () => {
   const sectionRef = useRef(null);

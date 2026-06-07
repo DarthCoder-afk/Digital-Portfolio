@@ -1,12 +1,12 @@
-import { AboutMe } from "../components/AboutMe";
-import { ContactSection } from "../components/ContactSection";
-import { ExperienceSection } from "../components/ExperienceSection";
-import { Footer } from "../components/Footer";
-import { HeroSection } from "../components/HeroSection";
-import { NavBar } from "../components/NavBar";
-import { ProjectSection } from "../components/ProjectSection";
-import { SkillSection } from "../components/SkillSection";
-import { SmoothScroll } from "../components/SmoothScroll";
+import { AboutSection } from "@/components/sections/AboutSection";
+import { ContactSection } from "@/components/sections/ContactSection";
+import { ExperienceSection } from "@/components/sections/ExperienceSection";
+import { FooterSection } from "@/components/sections/FooterSection";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { NavBar } from "@/components/layout/NavBar";
+import { ProjectSection } from "@/components/sections/ProjectSection";
+import { SkillSection } from "@/components/sections/SkillSection";
+import { SmoothScroll } from "@/components/effects/SmoothScroll";
 
 export const Home = () => {
   return (
@@ -14,12 +14,12 @@ export const Home = () => {
       <div className="relative min-h-screen overflow-x-hidden text-foreground">
         <main className="relative z-10">
           <HeroSection />
-          <AboutMe />
+          <AboutSection />
           <ExperienceSection />
           <SkillSection />
           <ProjectSection />
           <ContactSection />
-          <Footer />
+          <FooterSection />
         </main>
       </div>
     </SmoothScroll>

@@ -2,71 +2,9 @@ import { useEffect, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { BlueprintFrame } from "@/components/ui/BlueprintFrame";
+import { projects } from "@/data/projects";
 
-const proj = [
-  {
-    id: 1,
-    title: "HeartLink: Dating App",
-    description:
-      "A Next.js-based dating app with real-time chat, secure auth, and smart matching features.",
-    image: "/projects/project-4.png",
-    tags: ["Next.js", "TypeScript", "Socket.io", "Node.js", "MongoDB"],
-    role: "Full Stack Development & UI Design",
-    year: "2025",
-    demoUrl: "https://datingapp-heartlink.vercel.app/",
-    githubUrl: "#",
-  },
-  {
-    id: 2,
-    title: "Note App",
-    description:
-      "A MERN-based note-taking app that lets users create, edit, and delete notes in real time.",
-    image: "/projects/project-3.png",
-    tags: ["MongoDB", "Express", "React", "Node.js"],
-    role: "Full Stack Development",
-    year: "2025",
-    demoUrl: "https://noteapp-yn7h.onrender.com/",
-    githubUrl: "#",
-  },
-  {
-    id: 3,
-    title: "Leave Tracking System",
-    description:
-      "A web app for the HR Office to manage and monitor employee leave and travel requests efficiently.",
-    image: "/projects/project-1.png",
-    tags: ["HTML", "CSS", "Bootstrap", "PHP", "JavaScript", "MySQL"],
-    role: "Full Stack Development & Design",
-    year: "2025",
-    demoUrl: "#",
-    githubUrl: "#",
-  },
-  {
-    id: 4,
-    title: "Document Management System",
-    description:
-      "A system that helps the Sangguniang Bayan Office organize and track municipal resolutions and orders.",
-    image: "/projects/project-2.png",
-    tags: ["HTML", "CSS", "Bootstrap", "PHP", "JavaScript", "MySQL"],
-    role: "Full Stack Development",
-    year: "2025",
-    demoUrl: "#",
-    githubUrl: "#",
-  },
-];
-
-function BlueprintFrame({ children, className = "" }) {
-  return (
-    <div className={`about-frame ${className}`.trim()}>
-      <span className="about-frame__corner about-frame__corner--tl" aria-hidden="true" />
-      <span className="about-frame__corner about-frame__corner--tr" aria-hidden="true" />
-      <span className="about-frame__corner about-frame__corner--bl" aria-hidden="true" />
-      <span className="about-frame__corner about-frame__corner--br" aria-hidden="true" />
-      <span className="about-frame__guide about-frame__guide--top" aria-hidden="true" />
-      <span className="about-frame__guide about-frame__guide--left" aria-hidden="true" />
-      {children}
-    </div>
-  );
-}
 
 export const ProjectSection = () => {
   const sectionRef = useRef(null);
@@ -144,7 +82,7 @@ export const ProjectSection = () => {
         <div className="container">
           <div className="projects-section__header mb-16 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:mb-20">
             <p className="text-label text-muted-foreground">05 — Projects</p>
-            <p className="text-label text-muted-foreground/70">{proj.length} featured builds</p>
+            <p className="text-label text-muted-foreground/70">{projects.length} featured builds</p>
           </div>
 
           <div className="grid items-start gap-14 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-16 xl:gap-20">
@@ -175,7 +113,7 @@ export const ProjectSection = () => {
             </div>
 
             <div className="project-showcase">
-              {proj.map((project, index) => {
+              {projects.map((project, index) => {
                 const isDemoAvailable = project.demoUrl && project.demoUrl !== "#";
                 const indexLabel = String(index + 1).padStart(2, "0");
 
