@@ -101,8 +101,8 @@ npm run lint
 │   │   └── ui/                # Reusable UI pieces
 │   │       ├── BlueprintFrame.jsx
 │   │       ├── ProfileCard.jsx
-│   │       ├── Toast.jsx
-│   │       └── Toaster.jsx
+│   │       ├── ToastComponent.jsx
+│   │       └── ToasterComponent.jsx
 │   ├── data/                  # Portfolio content (edit here to update site copy)
 │   │   ├── experience.js      # Work history + project highlights
 │   │   ├── skills.js          # Skill list + category tabs
