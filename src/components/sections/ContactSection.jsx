@@ -189,7 +189,8 @@ export const ContactSection = () => {
   );
 };
 
-function ContactChannel({ id, label, value, href, icon: Icon }) {
+function ContactChannel({ id, label, value, href, icon }) {
+  const Icon = icon;
   const content = (
     <>
       <div className="contact-channel__meta">
