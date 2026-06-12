@@ -20,7 +20,7 @@ export const projects = [
       tags: ["MongoDB", "Express", "React", "Node.js"],
       role: "Full Stack Development",
       year: "2025",
-      demoUrl: "https://noteapp-yn7h.onrender.com/",
+      demoUrl: "https://note-app-xi-ten.vercel.app/",
       githubUrl: "#",
     },
     {
