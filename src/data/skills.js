@@ -26,6 +26,7 @@ export const skills = [
     { name: "Git", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg", category: "tools" },
     { name: "Gitlab", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg", category: "tools" },
     { name: "Postman", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg", category: "tools" },
+    { name: "Docker", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg", category: "tools" },
     { name: "VS Code", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg", category: "tools" },
     { name: "PyCharm", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pycharm/pycharm-original.svg", category: "tools" },
     { name: "Android Studio", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg", category: "tools" },
@@ -65,6 +66,6 @@ export const categories = [
         index: "03",
         title: "Tools",
         description:
-        "Proficient with Git, GitHub, Gitlab, Postman, VS Code, Rstudio, PyCharm, Figma, Blender, 3Ds Max, Unreal Engine, Microsoft Office, and Adobe Suite (Premiere Pro, After Effects).",
+        "Proficient with Git, GitHub, Gitlab, Docker, Postman, VS Code, Rstudio, PyCharm, Figma, Blender, 3Ds Max, Unreal Engine, Microsoft Office, and Adobe Suite (Premiere Pro, After Effects).",
     },
 ];
