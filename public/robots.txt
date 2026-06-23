@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sean-michael-borje.vercel.app/sitemap.xml
