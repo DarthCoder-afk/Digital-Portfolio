@@ -9,7 +9,7 @@ export const projects = [
       role: "Full Stack Development & UI Design",
       year: "2025",
       demoUrl: "https://datingapp-heartlink.vercel.app/",
-      githubUrl: "#",
+      githubUrl: "https://github.com/DarthCoder-afk/DatingApp",
     },
     {
       id: 2,
@@ -21,7 +21,7 @@ export const projects = [
       role: "Full Stack Development",
       year: "2025",
       demoUrl: "https://note-app-xi-ten.vercel.app/",
-      githubUrl: "#",
+      githubUrl: "https://github.com/DarthCoder-afk/NoteApp",
     },
     {
       id: 3,
@@ -47,4 +47,4 @@ export const projects = [
       demoUrl: "#",
       githubUrl: "#",
     },
-  ];
+  ]; 
