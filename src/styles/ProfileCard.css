@@ -30,6 +30,10 @@
   --card-radius: 30px;
 }
 
+.pc-card {
+  font-family: var(--font-display);
+}
+
 .pc-card-wrapper {
   perspective: 500px;
   transform: translate3d(0, 0, 0.1px);
