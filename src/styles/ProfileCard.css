@@ -15,12 +15,12 @@
   --behind-glow-color: rgba(125, 190, 255, 0.67);
   --behind-glow-size: 25%;
   --inner-gradient: none;
-  --sunpillar-1: hsl(2, 100%, 73%);
-  --sunpillar-2: hsl(53, 100%, 69%);
-  --sunpillar-3: hsl(93, 100%, 69%);
-  --sunpillar-4: hsl(176, 100%, 76%);
-  --sunpillar-5: hsl(228, 100%, 74%);
-  --sunpillar-6: hsl(283, 100%, 73%);
+  --sunpillar-1: hsl(0, 0%, 100%);
+  --sunpillar-2: hsl(0, 0%, 92%);
+  --sunpillar-3: hsl(0, 0%, 82%);
+  --sunpillar-4: hsl(0, 0%, 68%);
+  --sunpillar-5: hsl(0, 0%, 82%);
+  --sunpillar-6: hsl(0, 0%, 100%);
   --sunpillar-clr-1: var(--sunpillar-1);
   --sunpillar-clr-2: var(--sunpillar-2);
   --sunpillar-clr-3: var(--sunpillar-3);
