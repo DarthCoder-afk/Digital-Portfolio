@@ -4,12 +4,12 @@ export const experiences = [
       role: "Software Engineer",
       company: "White Cloak Technologies, Inc.",
       type: "Full-time",
-      period: "Dec 2025 — Present",
+      period: "Dec 2025 — July 2026",
       location: "Pasig City, Metro Manila, Philippines · Hybrid",
       projects: [
         {
           title: "AI Hiring Platform",
-          stack: ["Next.js", "Node.js", "MongoDB", "FIrebase", "Strapi", "Vercel"],
+          stack: ["Next.js", "Node.js", "MongoDB", "Firebase", "Strapi", "Vercel"],
           highlights: [
             "Implemented CRUD functionality for commenting and mention systems, enhancing user engagement. ",
             "Developed SEO-optimized blog pages using Next.js and Strapi CMS, improving search visibility and performance.",
@@ -30,7 +30,7 @@ export const experiences = [
         },
         {
           title: "ERP Document Processing Module",
-          stack: ["NestJS", "Next.js", "Prisma", "PostgreSQL"],
+          stack: ["NestJS", "Next.js", "Prisma", "PostgreSQL", "Ollama", "Qwen", "Tesseract OCR"],
           highlights: [
             "Developed OCR-powered document processing features, automating document workflows.",
             "Implemented automated text extraction pipelines that convert uploaded files into structured JSON data.",
