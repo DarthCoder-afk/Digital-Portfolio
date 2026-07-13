@@ -98,21 +98,9 @@ export const ProjectSection = () => {
                   user experience — from full-stack apps to government systems.
                 </p>
               </div>
-
-              <div className="mt-12 hidden lg:block">
-                <a
-                  href="https://github.com/DarthCoder-afk"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cinematic-button-secondary"
-                >
-                  View All on GitHub
-                  <ExternalLink size={15} />
-                </a>
-              </div>
             </div>
 
-            <div className="project-showcase">
+            <div className="project-showcase mt-12">
               {projects.map((project, index) => {
                 const isDemoAvailable = project.demoUrl && project.demoUrl !== "#";
                 const indexLabel = String(index + 1).padStart(2, "0");
@@ -201,12 +189,12 @@ export const ProjectSection = () => {
             </div>
           </div>
 
-          <div className="mt-16 lg:hidden">
+          <div className="mt-16 flex justify-center mt-12">
             <a
               href="https://github.com/DarthCoder-afk"
               target="_blank"
               rel="noopener noreferrer"
-              className="cinematic-button-secondary"
+              className="cinematic-button-secondary w-full justify-center sm:w-auto"
             >
               View All on GitHub
               <ExternalLink size={15} />
