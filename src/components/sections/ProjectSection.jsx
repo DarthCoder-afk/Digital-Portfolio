@@ -85,8 +85,8 @@ export const ProjectSection = () => {
             <p className="text-label text-muted-foreground/70">{projects.length} featured builds</p>
           </div>
 
-          <div className="grid items-start gap-14 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-16 xl:gap-20">
-            <div className="lg:sticky lg:top-28">
+          <div className="projects-layout">
+            <div>
               <div ref={headlineRef} className="max-w-xl">
                 <h2 className="text-display-lg text-foreground">
                   Selected work
