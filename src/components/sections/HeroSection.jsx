@@ -143,7 +143,7 @@ export const HeroSection = () => {
 
       <div
         ref={scrollCueRef}
-        className="container mt-10 flex min-w-0 items-center gap-3 text-muted-foreground sm:mt-16"
+        className="container mt-10 flex min-w-0 items-center justify-center gap-3 text-muted-foreground sm:mt-16 lg:justify-start"
       >
         <ArrowDown size={16} strokeWidth={1.5} />
         <span className="text-label">Scroll to explore</span>

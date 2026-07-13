@@ -85,8 +85,8 @@ export const ProjectSection = () => {
             <p className="text-label text-muted-foreground/70">{projects.length} featured builds</p>
           </div>
 
-          <div className="grid items-start gap-14 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-16 xl:gap-20">
-            <div className="lg:sticky lg:top-28">
+          <div className="projects-layout">
+            <div>
               <div ref={headlineRef} className="max-w-xl">
                 <h2 className="text-display-lg text-foreground">
                   Selected work
@@ -98,21 +98,9 @@ export const ProjectSection = () => {
                   user experience — from full-stack apps to government systems.
                 </p>
               </div>
-
-              <div className="mt-12 hidden lg:block">
-                <a
-                  href="https://github.com/DarthCoder-afk"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cinematic-button-secondary"
-                >
-                  View All on GitHub
-                  <ExternalLink size={15} />
-                </a>
-              </div>
             </div>
 
-            <div className="project-showcase">
+            <div className="project-showcase mt-12">
               {projects.map((project, index) => {
                 const isDemoAvailable = project.demoUrl && project.demoUrl !== "#";
                 const indexLabel = String(index + 1).padStart(2, "0");
@@ -201,12 +189,12 @@ export const ProjectSection = () => {
             </div>
           </div>
 
-          <div className="mt-16 lg:hidden">
+          <div className="mt-16 flex justify-center mt-12">
             <a
               href="https://github.com/DarthCoder-afk"
               target="_blank"
               rel="noopener noreferrer"
-              className="cinematic-button-secondary"
+              className="cinematic-button-secondary w-full justify-center sm:w-auto"
             >
               View All on GitHub
               <ExternalLink size={15} />

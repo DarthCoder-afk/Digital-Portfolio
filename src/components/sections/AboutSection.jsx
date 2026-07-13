@@ -146,7 +146,7 @@ export const AboutSection = () => {
                 ))}
               </div>
 
-              <div className="mt-14 flex flex-wrap items-center gap-5 md:mt-16">
+              <div className="mt-14 flex flex-wrap items-center justify-center gap-5 md:mt-16 lg:justify-start">
                 {import.meta.env.VITE_RESUME_URL && (<a
                   href={import.meta.env.VITE_RESUME_URL}
                   target="_blank"

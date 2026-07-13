@@ -1102,9 +1102,31 @@
 
 /* Projects section */
 .project-showcase {
-  display: flex;
-  flex-direction: column;
-  gap: 3.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .projects-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .project-showcase {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem;
+    align-items: stretch;
+  }
+
+  .project-card {
+    height: 100%;
+  }
+
+  .project-card__description {
+    max-width: none;
+  }
 }
 
 .project-card {
