@@ -331,6 +331,40 @@
   transform: translateX(-50%);
 }
 
+@media (width < 640px) {
+  .blueprint-grid {
+    opacity: calc(var(--grid-overlay-opacity) * 0.6);
+  }
+
+  .blueprint-grid line:nth-of-type(3),
+  .blueprint-grid line:nth-of-type(4),
+  .blueprint-grid line:nth-of-type(6),
+  .blueprint-grid line:nth-of-type(7),
+  .blueprint-grid line:nth-of-type(8),
+  .blueprint-grid line:nth-of-type(9),
+  .blueprint-grid line:nth-of-type(10),
+  .blueprint-grid .blueprint-marker {
+    display: none;
+  }
+
+  .blueprint-grid .blueprint-marker:nth-of-type(2),
+  .blueprint-grid .blueprint-marker:nth-of-type(7) {
+    display: block;
+  }
+}
+
+@media (width < 480px) {
+  .blueprint-grid {
+    opacity: calc(var(--grid-overlay-opacity) * 0.45);
+  }
+
+  .blueprint-grid line:nth-of-type(2),
+  .blueprint-grid line:nth-of-type(5),
+  .blueprint-grid .blueprint-marker {
+    display: none;
+  }
+}
+
 .cinematic-vignette {
   position: fixed;
   inset: 0;
@@ -483,6 +517,7 @@
 .about-frame {
   position: relative;
   padding: 1.25rem;
+  background: hsl(var(--card));
 }
 
 .about-frame__corner {
@@ -1161,6 +1196,7 @@
 
 .project-card__frame {
   padding: 0.85rem;
+  background: hsl(var(--card));
 }
 
 .project-card__media {
@@ -1569,4 +1605,3 @@ textarea.contact-field__input {
     transform: none !important;
   }
 }
- 
