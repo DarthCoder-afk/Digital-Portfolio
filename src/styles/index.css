@@ -331,6 +331,46 @@
   transform: translateX(-50%);
 }
 
+@media (width < 640px) {
+  .blueprint-grid {
+    opacity: calc(var(--grid-overlay-opacity) * 0.6);
+  }
+
+  .blueprint-grid line:nth-of-type(6),
+  .blueprint-grid line:nth-of-type(7),
+  .blueprint-grid line:nth-of-type(8),
+  .blueprint-grid line:nth-of-type(9),
+  .blueprint-grid line:nth-of-type(10),
+  .blueprint-grid .blueprint-marker {
+    display: none;
+  }
+
+  .blueprint-grid .blueprint-marker:nth-of-type(1),
+  .blueprint-grid .blueprint-marker:nth-of-type(2),
+  .blueprint-grid .blueprint-marker:nth-of-type(4),
+  .blueprint-grid .blueprint-marker:nth-of-type(7),
+  .blueprint-grid .blueprint-marker:nth-of-type(9) {
+    display: block;
+  }
+}
+
+@media (width < 480px) {
+  .blueprint-grid {
+    opacity: calc(var(--grid-overlay-opacity) * 0.55);
+  }
+
+  .blueprint-grid line:nth-of-type(3),
+  .blueprint-grid line:nth-of-type(4),
+  .blueprint-grid .blueprint-marker {
+    display: none;
+  }
+
+  .blueprint-grid .blueprint-marker:nth-of-type(2),
+  .blueprint-grid .blueprint-marker:nth-of-type(9) {
+    display: block;
+  }
+}
+
 .cinematic-vignette {
   position: fixed;
   inset: 0;
@@ -1569,4 +1609,3 @@ textarea.contact-field__input {
     transform: none !important;
   }
 }
- 
