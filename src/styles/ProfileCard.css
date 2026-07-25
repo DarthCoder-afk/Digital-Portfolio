@@ -92,9 +92,6 @@
 .pc-card-shell {
   position: relative;
   z-index: 1;
-  isolation: isolate;
-  border-radius: var(--card-radius);
-  background: #0a0a0a;
 }
 
 .pc-card * {
